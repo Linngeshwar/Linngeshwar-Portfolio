@@ -1,5 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Squares from "@/Backgrounds/Squares/Squares";
+import Particles from "@/Backgrounds/Particles/Particles";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,6 +25,9 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+        <div className="fixed inset-0 z-[-1] overflow-hidden">
+          <Particles particleCount={200} alphaParticles={true}  />
+        </div>
       </body>
     </html>
   );
