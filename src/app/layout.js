@@ -2,6 +2,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Squares from "@/Backgrounds/Squares/Squares";
 import Particles from "@/Backgrounds/Particles/Particles";
+import CustomCursor from "./components/CustomCursor";
+import { CursorProvider } from "./context/CursorContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,10 +26,13 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
-        <div className="fixed inset-0 z-[-1] overflow-hidden">
-          <Particles particleCount={200} alphaParticles={true}  />
-        </div>
+        <CursorProvider>
+          <CustomCursor />
+          {children}
+          <div className="fixed inset-0 z-[-1] overflow-hidden">
+            <Particles particleCount={200} alphaParticles={true} />
+          </div>
+        </CursorProvider>
       </body>
     </html>
   );
