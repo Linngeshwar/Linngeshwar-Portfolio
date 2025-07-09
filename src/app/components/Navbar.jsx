@@ -11,7 +11,7 @@ export default function Navbar() {
   const { setMenuHover } = useCursor();
 
   const navItems = useMemo(
-    () => ["Welcome", "About", "Koala", "Projects", "Contact"],
+    () => ["About", "Projects", "Koala", "Experience", "Contact"],
     []
   );
 
@@ -52,7 +52,7 @@ export default function Navbar() {
   return (
     <>
       {/* Main Navbar */}
-      <nav className="fixed top-8 left-1/2 transform -translate-x-1/2 z-40">
+      <nav className="fixed flex flex-col justify-center items-center top-8 right-0 transform -translate-x-1/2 z-40 outline-none">
         <button
           ref={menuButtonRef}
           onMouseEnter={() => handleMenuHover(true)}
@@ -60,7 +60,20 @@ export default function Navbar() {
           onClick={toggleMenu}
           className={buttonClasses}
         >
-          Menu
+          <span className="relative block h-[1.5em] overflow-hidden">
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.span
+                key={isMenuOpen ? "close" : "menu"}
+                initial={{ y: isMenuOpen ? 20 : -20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: isMenuOpen ? 20 : -20, opacity: 0 }}
+                transition={{ duration: 0.25, ease: "easeInOut" }}
+                className="w-full block text-inherit"
+              >
+                {isMenuOpen ? "Close" : "Menu"}
+              </motion.span>
+            </AnimatePresence>
+          </span>
         </button>
       </nav>
 
@@ -68,20 +81,13 @@ export default function Navbar() {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            initial={{ x: "-100%" }}
+            initial={{ x: "-101%" }}
             animate={{ x: 0 }}
             exit={{ x: "-100%" }}
             transition={{ duration: 0.6, ease: [0.6, 0.01, 0.05, 0.95] }}
-            className="fixed inset-0 bg-black z-30 flex flex-col items-center justify-center"
+            className="fixed inset-0 bg-[#00000069] z-30 flex flex-col items-center justify-center"
           >
             {/* Close button */}
-            <button
-              onClick={closeMenu}
-              className="absolute top-8 right-8 text-white text-2xl hover:text-gray-300 transition-colors z-40"
-            >
-              ✕
-            </button>
-
             {/* Navigation Links */}
             <div className="flex flex-col items-center space-y-8">
               {navItems.map((item, index) => (
@@ -94,7 +100,7 @@ export default function Navbar() {
                     duration: 0.6,
                     ease: "easeOut",
                   }}
-                  className="group relative overflow-hidden"
+                  className=" clickable-white group relative overflow-hidden"
                 >
                   <Link
                     href={`#${item.toLowerCase()}`}
@@ -102,7 +108,7 @@ export default function Navbar() {
                     className="block relative px-8 py-4 text-4xl md:text-6xl font-bold text-white transition-colors duration-300 group-hover:text-black z-10"
                   >
                     {/* Background slide effect */}
-                    <div className="absolute inset-0 bg-white transform translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out"></div>
+                    <div className=" absolute inset-0 bg-white transform translate-x-[99%] group-hover:translate-x-0 transition-transform duration-500 ease-out"></div>
 
                     {/* Top bar slide effect */}
                     <div className="absolute top-0 left-0 right-0 h-1 bg-black transform -translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out delay-200"></div>

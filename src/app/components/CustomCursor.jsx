@@ -12,44 +12,49 @@ import { useCursor } from "../context/CursorContext";
 // Custom hook for throttled mouse position
 const useThrottledMousePosition = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
-  const animationFrameRef = useRef(null);
-  const lastUpdateTime = useRef(0);
+  const lastUpdateRef = useRef(0);
+  const pendingUpdateRef = useRef(null);
 
   const handleMouseMove = useCallback((e) => {
-    const now = Date.now();
+    const now = performance.now();
 
-    // Throttle to 60fps max
-    if (now - lastUpdateTime.current < 16) {
+    // Cancel any pending update
+    if (pendingUpdateRef.current) {
+      cancelAnimationFrame(pendingUpdateRef.current);
+    }
+
+    // Throttle to max 60fps (16.67ms)
+    const timeSinceLastUpdate = now - lastUpdateRef.current;
+    if (timeSinceLastUpdate < 16.67) {
+      pendingUpdateRef.current = requestAnimationFrame(() => {
+        handleMouseMove(e);
+      });
       return;
     }
 
-    if (animationFrameRef.current) {
-      cancelAnimationFrame(animationFrameRef.current);
-    }
+    lastUpdateRef.current = now;
 
-    animationFrameRef.current = requestAnimationFrame(() => {
-      setPosition({ x: e.clientX, y: e.clientY });
-      lastUpdateTime.current = now;
-    });
+    // Batch state updates
+    setPosition({ x: e.clientX, y: e.clientY });
   }, []);
 
   useEffect(() => {
-    const options = { passive: true };
-    window.addEventListener("mousemove", handleMouseMove, options);
+    const options = { passive: true, capture: false };
+    document.addEventListener("mousemove", handleMouseMove, options);
 
     return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
+      document.removeEventListener("mousemove", handleMouseMove, options);
+      if (pendingUpdateRef.current) {
+        cancelAnimationFrame(pendingUpdateRef.current);
       }
     };
   }, [handleMouseMove]);
 
-  return position;
+  return { position };
 };
 
 function CustomCursor() {
-  const position = useThrottledMousePosition();
+  const { position } = useThrottledMousePosition();
   const [clicked, setClicked] = useState(false);
   const cursorRef = useRef(null);
   const clickTimeoutRef = useRef(null);
@@ -65,43 +70,59 @@ function CustomCursor() {
     }, 300);
   }, []);
 
-  // Memoized styles to prevent recalculation
+  // Memoized styles with better performance
   const cursorStyles = useMemo(() => {
     if (isMenuHovered && menuButtonPosition) {
       return {
+        position: "fixed",
         transform: `translate3d(${menuButtonPosition.x}px, ${menuButtonPosition.y}px, 0)`,
         width: `${menuButtonPosition.width}px`,
         height: `${menuButtonPosition.height}px`,
         borderRadius: "8px",
+        willChange: "transform", // GPU optimization hint
       };
     }
+
+    // Use transform instead of top/left for better performance
     return {
+      position: "fixed",
       transform: `translate3d(${position.x - 10}px, ${position.y - 10}px, 0)`,
-      width: "20px",
-      height: "20px",
+      width: "25px",
+      height: "25px",
       borderRadius: "50%",
     };
   }, [isMenuHovered, menuButtonPosition, position.x, position.y]);
 
+  // Optimize class concatenation
   const cursorClasses = useMemo(() => {
-    return `fixed pointer-events-none z-50 border-2 border-white transition-all duration-300 ease-out cursor-optimized ${
-      isMenuHovered ? "border-white" : ""
-    }`;
+    const baseClasses =
+      "fixed pointer-events-none z-50 transition-all duration-150 ease-out border-3 mix-blend-difference  ";
+
+    if (isMenuHovered) {
+      return `${baseClasses} border-white`;
+    } else {
+      return `${baseClasses} border-white`;
+    }
   }, [isMenuHovered]);
 
   const innerCursorClasses = useMemo(() => {
-    return `w-[1.2rem] h-[1.2rem] bg-white transition-all duration-300 ease-in-out rounded-full ${
+    const baseClasses =
+      "w-[1.2rem] h-[1.2rem] bg-white transition-all duration-150 ease-in-out rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2";
+
+    if (isMenuHovered) {
+      return `${baseClasses} hidden`;
+    }
+
+    return `${baseClasses} ${
       clicked ? "opacity-100 scale-100" : "opacity-0 scale-0"
-    } ${isMenuHovered ? "hidden" : ""}`;
+    }`;
   }, [clicked, isMenuHovered]);
 
   useEffect(() => {
     const options = { passive: true };
-    window.addEventListener("click", handleMouseClick, options);
-
+    document.addEventListener("click", handleMouseClick, options);
     return () => {
-      window.removeEventListener("click", handleMouseClick);
-
+      document.removeEventListener("click", handleMouseClick, options);
       if (clickTimeoutRef.current) {
         clearTimeout(clickTimeoutRef.current);
       }
