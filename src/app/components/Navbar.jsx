@@ -85,7 +85,7 @@ export default function Navbar() {
             animate={{ x: 0 }}
             exit={{ x: "-100%" }}
             transition={{ duration: 0.6, ease: [0.6, 0.01, 0.05, 0.95] }}
-            className="fixed inset-0 bg-[#00000069] z-30 flex flex-col items-center justify-center"
+            className="fixed inset-0 bg-[#000000db] z-30 flex flex-col items-center justify-center"
           >
             {/* Close button */}
             {/* Navigation Links */}
