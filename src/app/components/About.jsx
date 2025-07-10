@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import RotatingText from "@/TextAnimations/RotatingText/RotatingText";
+import ThisOrThat from "./ThisOrThat";
+import ShinyText from "@/TextAnimations/ShinyText/ShinyText";
 
 export default function About() {
   const [isHovered, setIsHovered] = useState(false);
@@ -40,37 +42,37 @@ export default function About() {
                 hidden: { opacity: 0 },
                 visible: { opacity: 1 },
               }}
-              //   animate={
-              //     isHovered
-              //       ? { color: ["#ffffff"] } // Static color when hovered
-              //       : {
-              //           color: [
-              //             "#ffffff",
-              //             "#f0f0f0",
-              //             "#d0d0d0",
-              //             "#a0a0a0",
-              //             "#808080",
-              //             "#606060",
-              //             "#404040",
-              //             "#202020",
-              //             "#000000",
-              //             "#202020",
-              //             "#404040",
-              //             "#606060",
-              //             "#808080",
-              //             "#a0a0a0",
-              //             "#d0d0d0",
-              //             "#f0f0f0",
-              //             "#ffffff",
-              //           ],
-              //           transition: {
-              //             duration: 3,
-              //             repeat: Infinity,
-              //             repeatType: "loop",
-              //             delay: index * 0.05,
-              //           },
-              //         }
-              //   }
+              animate={
+                !isHovered
+                  ? { color: ["#ffffff"] } // Static color when hovered
+                  : {
+                      color: [
+                        "#ffffff",
+                        "#f0f0f0",
+                        "#d0d0d0",
+                        "#a0a0a0",
+                        "#808080",
+                        "#606060",
+                        "#404040",
+                        "#202020",
+                        "#000000",
+                        "#202020",
+                        "#404040",
+                        "#606060",
+                        "#808080",
+                        "#a0a0a0",
+                        "#d0d0d0",
+                        "#f0f0f0",
+                        "#ffffff",
+                      ],
+                      transition: {
+                        duration: 3,
+                        repeat: Infinity,
+                        repeatType: "loop",
+                        delay: index * 0.05,
+                      },
+                    }
+              }
               transition={{
                 duration: 0.4,
                 ease: "easeOut",
@@ -83,12 +85,10 @@ export default function About() {
       </motion.div>
       {/* Description section */}
       <div className="col-span-2 flex flex-col justify-around row-start-2 text-2xl h-full ml-18">
-        <p className="mb-4">
-          I am a passionate web developer with a keen interest in creating
-          dynamic and responsive web applications who is trying to figure things
-          out. My expertise lies in leveraging modern technologies to build
-          user-friendly interfaces and seamless user experiences.
-        </p>
+        <ShinyText
+          duration={1}
+          text="I am a passionate web developer with a keen interest in creating dynamic and responsive web applications who is trying to figure things out. My expertise lies in leveraging modern technologies to build user-friendly interfaces and seamless user experiences."
+        />
         <div className="flex flex-row items-center gap-4">
           <p className="text-2xl md-2">I am a</p>
           <RotatingText
@@ -104,6 +104,10 @@ export default function About() {
             rotationInterval={2000}
           />
         </div>
+      </div>
+      {/* Fun and Interactive section */}
+      <div className="col-span-2 row-start-3 flex justify-center items-center h-full">
+        <ThisOrThat />
       </div>
     </div>
   );

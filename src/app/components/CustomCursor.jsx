@@ -60,30 +60,37 @@ function CustomCursor() {
   const clickTimeoutRef = useRef(null);
   const { isMenuHovered, menuButtonPosition } = useCursor();
 
-  const handleMouseClick = useCallback(() => {
-    setClicked(true);
-    if (clickTimeoutRef.current) {
-      clearTimeout(clickTimeoutRef.current);
-    }
-    clickTimeoutRef.current = setTimeout(() => {
-      setClicked(false);
-    }, 300);
+  // Track if mouse is inside a button
+  const [isButtonActive, setIsButtonActive] = useState(false);
+
+  useEffect(() => {
+    // Listen for mouseup to reset hover state if stuck
+    const handleMouseUp = () => {
+      setIsButtonActive(false);
+    };
+    window.addEventListener("mouseup", handleMouseUp);
+    return () => {
+      window.removeEventListener("mouseup", handleMouseUp);
+    };
   }, []);
+
+  useEffect(() => {
+    // If menu hover is off, always reset button active
+    if (!isMenuHovered) setIsButtonActive(false);
+  }, [isMenuHovered]);
 
   // Memoized styles with better performance
   const cursorStyles = useMemo(() => {
-    if (isMenuHovered && menuButtonPosition) {
+    if (isMenuHovered && menuButtonPosition && !isButtonActive) {
       return {
         position: "fixed",
         transform: `translate3d(${menuButtonPosition.x}px, ${menuButtonPosition.y}px, 0)`,
         width: `${menuButtonPosition.width}px`,
         height: `${menuButtonPosition.height}px`,
         borderRadius: "8px",
-        willChange: "transform", // GPU optimization hint
+        willChange: "transform",
       };
     }
-
-    // Use transform instead of top/left for better performance
     return {
       position: "fixed",
       transform: `translate3d(${position.x - 10}px, ${position.y - 10}px, 0)`,
@@ -91,7 +98,13 @@ function CustomCursor() {
       height: "25px",
       borderRadius: "50%",
     };
-  }, [isMenuHovered, menuButtonPosition, position.x, position.y]);
+  }, [
+    isMenuHovered,
+    menuButtonPosition,
+    position.x,
+    position.y,
+    isButtonActive,
+  ]);
 
   // Optimize class concatenation
   const cursorClasses = useMemo(() => {
@@ -118,6 +131,19 @@ function CustomCursor() {
     }`;
   }, [clicked, isMenuHovered]);
 
+  // Handle click animation for inner cursor
+  const handleMouseClick = useCallback(() => {
+    setClicked(true);
+    if (clickTimeoutRef.current) {
+      clearTimeout(clickTimeoutRef.current);
+    }
+    clickTimeoutRef.current = setTimeout(() => {
+      setClicked(false);
+    }, 300);
+    // Also reset button active state on click to prevent stuck border
+    setIsButtonActive(false);
+  }, []);
+
   useEffect(() => {
     const options = { passive: true };
     document.addEventListener("click", handleMouseClick, options);
@@ -130,7 +156,13 @@ function CustomCursor() {
   }, [handleMouseClick]);
 
   return (
-    <div ref={cursorRef} style={cursorStyles} className={cursorClasses}>
+    <div
+      ref={cursorRef}
+      style={cursorStyles}
+      className={cursorClasses}
+      onMouseDown={() => setIsButtonActive(true)}
+      onMouseUp={() => setIsButtonActive(false)}
+    >
       <div className={innerCursorClasses} />
     </div>
   );

@@ -31,6 +31,9 @@ export const CursorProvider = ({ children }) => {
     setIsMenuHovered(isHovered);
     if (position) {
       setMenuButtonPosition(position);
+    } else if (!isHovered) {
+      // Reset position when hover ends to avoid cursor getting stuck
+      setMenuButtonPosition({ x: 0, y: 0, width: 0, height: 0 });
     }
   }, []);
 

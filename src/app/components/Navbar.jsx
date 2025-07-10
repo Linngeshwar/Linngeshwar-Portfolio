@@ -4,6 +4,7 @@ import React, { useState, useRef, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useCursor } from "../context/CursorContext";
+import CursorButton from "./CursorButton";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -53,13 +54,7 @@ export default function Navbar() {
     <>
       {/* Main Navbar */}
       <nav className="fixed flex flex-col justify-center items-center top-8 right-0 transform -translate-x-1/2 z-40 outline-none">
-        <button
-          ref={menuButtonRef}
-          onMouseEnter={() => handleMenuHover(true)}
-          onMouseLeave={() => handleMenuHover(false)}
-          onClick={toggleMenu}
-          className={buttonClasses}
-        >
+        <CursorButton onClick={toggleMenu} className={buttonClasses}>
           <span className="relative block h-[1.5em] overflow-hidden">
             <AnimatePresence mode="wait" initial={false}>
               <motion.span
@@ -74,7 +69,7 @@ export default function Navbar() {
               </motion.span>
             </AnimatePresence>
           </span>
-        </button>
+        </CursorButton>
       </nav>
 
       {/* Full-screen Overlay */}
