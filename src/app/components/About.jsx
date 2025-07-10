@@ -106,8 +106,11 @@ export default function About() {
         </div>
       </div>
       {/* Fun and Interactive section */}
-      <div className="col-span-2 row-start-3 flex justify-center items-center h-full">
+      <div className="col-span-1 row-start-3 flex justify-center items-center h-full">
         <ThisOrThat />
+      </div>
+      <div className="col-span-2 row-start-3 flex justify-end items-end mr-40 h-full">
+        <img src="/images/we bare bears.png" alt="We Bare Bears" />
       </div>
     </div>
   );
