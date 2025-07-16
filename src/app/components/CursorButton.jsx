@@ -7,9 +7,9 @@ export default function CursorButton({ children, className = "", ...props }) {
   const buttonRef = useRef(null);
   const { setMenuHover } = useCursor();
 
-  // Default button styling
+  // Default button styling (without background to allow parent control)
   const defaultClasses =
-    "px-6 py-3 text-lg font-medium rounded-lg transition-all duration-300 ease-in-out bg-white text-black hover:bg-transparent hover:text-white";
+    "px-6 py-3 text-lg font-medium rounded-lg transition-all duration-300 ease-in-out";
 
   const mergedClasses = `${defaultClasses} ${className}`.trim();
 

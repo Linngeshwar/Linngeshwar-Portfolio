@@ -163,6 +163,7 @@ export default function ThisOrThat() {
             <div className="flex items-start justify-start space-x-5">
               <CursorButton
                 onClick={() => handleAnswer(options[current].option1)}
+                className="bg-white text-black hover:bg-transparent hover:text-white"
               >
                 <span className="text-lg text-inherit">
                   {options[current].option1}
@@ -171,6 +172,7 @@ export default function ThisOrThat() {
 
               <CursorButton
                 onClick={() => handleAnswer(options[current].option2)}
+                className="bg-white text-black hover:bg-transparent hover:text-white"
               >
                 <span className="text-lg text-inherit">
                   {options[current].option2}
