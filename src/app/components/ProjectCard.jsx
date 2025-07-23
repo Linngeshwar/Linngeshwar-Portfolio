@@ -16,7 +16,7 @@ export default function ProjectCard({
 
   return (
     <motion.div
-      className="project-card grid grid-cols-2 gap-8 h-full my-10 mx-16 p-8 bg-gradient-to-br from-neutral-900 to-neutral-950 border border-neutral-800 shadow-2xl rounded-2xl transition-all duration-300 hover:border-neutral-700 group"
+      className="project-card grid grid-cols-2 gap-8 my-5 mx-16 p-8 bg-gradient-to-br from-neutral-900 to-neutral-950 border border-neutral-800 shadow-2xl rounded-2xl transition-all duration-300 hover:border-neutral-700 group"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >

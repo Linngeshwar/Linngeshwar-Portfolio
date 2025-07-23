@@ -126,7 +126,7 @@ export default function Projects() {
         timeline.to(
           prevCard,
           {
-            scale: 1 - (cards.length - index) * 0.05,
+            scale: 1 - (cards.length - index) * 0.08,
             yPercent: -(cards.length - index) * 5,
             ease: "power2.inOut",
           },
@@ -155,7 +155,7 @@ export default function Projects() {
         start: "top top",
         end: "bottom bottom",
         pin: ".sticky-container", // Pin the container that holds the cards.
-        scrub: 1.5, // Increased scrub value for more smoothing.
+        scrub: 3, // Increased scrub value for more smoothing.
         animation: timeline,
       });
     }, containerRef); // Scope the context to the main container.
