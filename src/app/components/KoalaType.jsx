@@ -431,7 +431,7 @@ export default function KoalaType() {
       : 0;
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-8">
+    <div className="min-h-screen flex flex-col items-center justify-center p-8 z-10">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -649,12 +649,6 @@ export default function KoalaType() {
         )}
 
         {/* Instructions */}
-        <div className="text-center mt-8 text-gray-500 text-sm">
-          <p>
-            Start typing to begin • Complete each word fully before pressing
-            spacebar • Backspace to correct current word only
-          </p>
-        </div>
 
         {/* Hidden textarea for capturing input */}
         <textarea

@@ -110,7 +110,8 @@ export default function MaybeProjects() {
   return (
     <div
       ref={containerRef}
-      className={`h-[${projects.length * 100}vh] relative`}
+      className="relative"
+      style={{ height: `${(projects.length + 1) * 100}vh` }}
     >
       {projects.map((project, index) => (
         <ProjectCard
@@ -156,7 +157,7 @@ const ProjectCard = ({
         className="project-card w-7xl grid grid-cols-2 gap-8 my-5 mx-16 p-8 bg-gradient-to-br from-neutral-900 to-neutral-950 border border-neutral-800 shadow-2xl rounded-2xl transition-all duration-300 hover:border-neutral-700 group"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        style={{ scale }}
+        // style={{ scale }}
       >
         {/* Project Image */}
         {image && (
