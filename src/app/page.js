@@ -76,6 +76,11 @@ export default function Home() {
   // const scale = useTransform(scrollYProgress, [0.9, 1], [1, 0.7]);
 
   const opacity = useTransform(scrollYProgress, [0.9, 1], [1, 0]);
+  // const antiRotate = useTransform(scrollYProgress, [0.9, 1], [0, 30]);
+
+  // const rotate = useTransform(scrollYProgress, [0.9, 1], [30, 0]);
+  const scale = useTransform(scrollYProgress, [0.9, 1], [0.5, 1]);
+  // const x = useTransform(scrollYProgress, [0.9, 1], ["-100%", "0% "]);
 
   return (
     <div>
@@ -89,7 +94,11 @@ export default function Home() {
         </motion.div>
 
         {/* KoalaType section - Removed motion.div wrapper to improve interactivity */}
-        <div ref={setKoalaTypeRef} className="min-h-screen relative z-10">
+        <motion.div
+          ref={setKoalaTypeRef}
+          // style={{ scale }}
+          className="min-h-screen relative z-10"
+        >
           {showKoalaType ? (
             <Suspense
               fallback={
@@ -105,7 +114,7 @@ export default function Home() {
               Scroll down to load typing game...
             </div>
           )}
-        </div>
+        </motion.div>
       </div>
     </div>
   );

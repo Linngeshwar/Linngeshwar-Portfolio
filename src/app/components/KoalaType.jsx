@@ -431,7 +431,7 @@ export default function KoalaType() {
       : 0;
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-8 z-10">
+    <div className="min-h-screen flex flex-col items-center justify-center p-8 z-10 bg-gradient-to-tl from-[hsl(0,0%,0%)] via-[hsl(210,100%,9%)] to-[hsla(0, 0%, 10%)]">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

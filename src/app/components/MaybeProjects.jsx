@@ -111,7 +111,7 @@ export default function MaybeProjects() {
     <div
       ref={containerRef}
       className="relative"
-      style={{ height: `${(projects.length + 1) * 100}vh` }}
+      style={{ height: `${(projects.length + 3) * 100}vh` }}
     >
       {projects.map((project, index) => (
         <ProjectCard
