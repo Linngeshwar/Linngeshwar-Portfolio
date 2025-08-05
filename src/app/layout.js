@@ -2,7 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Squares from "@/Backgrounds/Squares/Squares";
 import Particles from "@/Backgrounds/Particles/Particles";
-import CustomCursor from "./components/CustomCursor";
+import CustomCursor from "./components/Cursor/CustomCursor";
 import { CursorProvider } from "./context/CursorContext";
 
 const geistSans = Geist({

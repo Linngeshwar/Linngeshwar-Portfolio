@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import { motion, useScroll } from "framer-motion";
-import CursorButton from "./CursorButton";
+import CursorButton from "../Cursor/CursorButton";
 import Lenis from "lenis";
 import { useTransform } from "framer-motion";
 

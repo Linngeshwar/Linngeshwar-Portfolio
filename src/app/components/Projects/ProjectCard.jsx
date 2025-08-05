@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
-import CursorButton from "./CursorButton";
+import CursorButton from "../Cursor/CursorButton";
 
 export default function ProjectCard({
   title = "Project Title",

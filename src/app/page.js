@@ -2,16 +2,18 @@
 
 import { useState, useEffect, Suspense } from "react";
 import dynamic from "next/dynamic";
-import Navbar from "./components/Navbar";
-import About from "./components/About";
-// import Projects from "./components/Projects";
-import MaybeProjects from "./components/MaybeProjects";
+import Navbar from "./components/Navbar/Navbar";
+import About from "./components/About/About";
+import Skills from "./components/Skills/Skills";
+import Contact from "./components/Contact/Contact";
+import MaybeProjects from "./components/Projects/MaybeProjects";
+import Footer from "./components/Footer/Footer";
 import { motion, useTransform, useScroll } from "framer-motion";
 import { useRef } from "react";
 import Lenis from "lenis";
 
 // Import KoalaType lazily
-const KoalaType = dynamic(() => import("./components/KoalaType"), {
+const KoalaType = dynamic(() => import("./components/Koala/KoalaType"), {
   loading: () => (
     <div className="h-screen flex items-center justify-center text-neutral-400">
       Loading typing game...
@@ -22,13 +24,11 @@ const KoalaType = dynamic(() => import("./components/KoalaType"), {
 
 export default function Home() {
   const [showKoalaType, setShowKoalaType] = useState(false);
-  const [koalaTypeRef, setKoalaTypeRef] = useState(null);
+  const koalaTypeRef = useRef(null);
 
   useEffect(() => {
-    // Force scroll to top on initial page load
-
     // Set up intersection observer for lazy loading
-    if (koalaTypeRef) {
+    if (koalaTypeRef.current) {
       const observer = new IntersectionObserver(
         ([entry]) => {
           // When KoalaType section is approaching viewport, load it
@@ -42,11 +42,11 @@ export default function Home() {
         }
       );
 
-      observer.observe(koalaTypeRef);
+      observer.observe(koalaTypeRef.current);
 
       return () => observer.disconnect();
     }
-  }, [koalaTypeRef]);
+  }, []);
 
   useEffect(() => {
     // Initialize Lenis for smooth scrolling
@@ -78,7 +78,7 @@ export default function Home() {
   const opacity = useTransform(scrollYProgress, [0.9, 1], [1, 0]);
   // const antiRotate = useTransform(scrollYProgress, [0.9, 1], [0, 30]);
 
-  // const rotate = useTransform(scrollYProgress, [0.9, 1], [30, 0]);
+  const rotate = useTransform(scrollYProgress, [0.9, 1], [30, 0]);
   const scale = useTransform(scrollYProgress, [0.9, 1], [0.5, 1]);
   // const x = useTransform(scrollYProgress, [0.9, 1], ["-100%", "0% "]);
 
@@ -95,8 +95,8 @@ export default function Home() {
 
         {/* KoalaType section - Removed motion.div wrapper to improve interactivity */}
         <motion.div
-          ref={setKoalaTypeRef}
-          // style={{ scale }}
+          ref={koalaTypeRef}
+          style={{ rotate, scale }}
           className="min-h-screen relative z-10"
         >
           {showKoalaType ? (
@@ -116,6 +116,9 @@ export default function Home() {
           )}
         </motion.div>
       </div>
+      <Skills />
+      <Contact />
+      <Footer />
     </div>
   );
 }

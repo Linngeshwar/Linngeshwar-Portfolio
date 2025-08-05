@@ -3,8 +3,8 @@
 import React, { useState, useRef, useCallback, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { useCursor } from "../context/CursorContext";
-import CursorButton from "./CursorButton";
+import { useCursor } from "../../context/CursorContext";
+import CursorButton from "../Cursor/CursorButton";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,7 +12,7 @@ export default function Navbar() {
   const { setMenuHover } = useCursor();
 
   const navItems = useMemo(
-    () => ["About", "Projects", "Koala", "Experience", "Contact"],
+    () => ["About", "Projects", "Koala", "Skills", "Contact", "Resume"],
     []
   );
 
@@ -98,7 +98,12 @@ export default function Navbar() {
                   className=" clickable-white group relative overflow-hidden"
                 >
                   <Link
-                    href={`#${item.toLowerCase()}`}
+                    href={
+                      item === "Resume"
+                        ? "/resume.pdf"
+                        : `#${item.toLowerCase()}`
+                    }
+                    target={item === "Resume" ? "_blank" : undefined}
                     onClick={closeMenu}
                     className="block relative px-8 py-4 text-4xl md:text-6xl font-bold text-white transition-colors duration-300 group-hover:text-black z-10"
                   >

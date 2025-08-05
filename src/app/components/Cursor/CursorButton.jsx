@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useCallback } from "react";
-import { useCursor } from "../context/CursorContext";
+import { useCursor } from "../../context/CursorContext";
 
 export default function CursorButton({ children, className = "", ...props }) {
   const buttonRef = useRef(null);

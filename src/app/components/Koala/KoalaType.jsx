@@ -2,8 +2,8 @@
 
 import { motion } from "framer-motion";
 import { useState, useEffect, useCallback, useRef, useMemo } from "react";
-import CursorButton from "./CursorButton";
-import { useCursor } from "../context/CursorContext";
+import CursorButton from "../Cursor/CursorButton";
+import { useCursor } from "../../context/CursorContext";
 
 export default function KoalaType() {
   const { setMenuHover } = useCursor();

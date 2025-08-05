@@ -1,7 +1,7 @@
 import React, { memo } from "react";
-import CursorButton from "./CursorButton";
+import CursorButton from "../Cursor/CursorButton";
 import { useState } from "react";
-import { useCursor } from "../context/CursorContext";
+import { useCursor } from "../../context/CursorContext";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
 import { Toaster } from "react-hot-toast";

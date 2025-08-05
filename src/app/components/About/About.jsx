@@ -5,6 +5,7 @@ import { useState } from "react";
 import RotatingText from "@/TextAnimations/RotatingText/RotatingText";
 import ThisOrThat from "./ThisOrThat";
 import ShinyText from "@/TextAnimations/ShinyText/ShinyText";
+import CursorButton from "../Cursor/CursorButton";
 
 export default function About() {
   const [isHovered, setIsHovered] = useState(false);
@@ -104,6 +105,25 @@ export default function About() {
             rotationInterval={2000}
           />
         </div>
+
+        {/* Resume Download Button */}
+        <motion.div
+          className="mt-6"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1, duration: 0.8 }}
+        >
+          <CursorButton
+            className="bg-white text-black hover:bg-transparent hover:text-white border-2 border-white transition-all duration-300"
+            onClick={() => {
+              // Replace with your actual resume URL or file path
+              const resumeUrl = "/resume.pdf"; // Place your resume.pdf in the public folder
+              window.open(resumeUrl, "_blank");
+            }}
+          >
+            Download Resume
+          </CursorButton>
+        </motion.div>
       </div>
       {/* Fun and Interactive section */}
       <div className="col-span-1 row-start-3 flex justify-center items-center h-full">

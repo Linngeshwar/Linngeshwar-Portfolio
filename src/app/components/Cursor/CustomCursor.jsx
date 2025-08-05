@@ -7,7 +7,7 @@ import React, {
   useCallback,
   useMemo,
 } from "react";
-import { useCursor } from "../context/CursorContext";
+import { useCursor } from "../../context/CursorContext";
 
 // Custom hook for throttled mouse position
 const useThrottledMousePosition = () => {
