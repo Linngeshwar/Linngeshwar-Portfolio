@@ -11,8 +11,7 @@ import Footer from "./components/Footer/Footer";
 import { motion, useTransform, useScroll } from "framer-motion";
 import { useRef } from "react";
 import Lenis from "lenis";
-import ExpandableCardDemo from "@/components/expandable-card-demo-grid";
-
+import Projects from "./components/Projects/ProjectsFinally";
 // Import KoalaType lazily
 const KoalaType = dynamic(() => import("./components/Koala/KoalaType"), {
   loading: () => (
@@ -79,7 +78,7 @@ export default function Home() {
   const opacity = useTransform(scrollYProgress, [0.9, 1], [1, 0]);
   // const antiRotate = useTransform(scrollYProgress, [0.9, 1], [0, 30]);
 
-  const rotate = useTransform(scrollYProgress, [0.9, 1], [30, 0]);
+  // const rotate = useTransform(scrollYProgress, [0.9, 1], [30, 0]);
   const scale = useTransform(scrollYProgress, [0.9, 1], [0.5, 1]);
   // const x = useTransform(scrollYProgress, [0.9, 1], ["-100%", "0% "]);
 
@@ -97,7 +96,7 @@ export default function Home() {
         {/* KoalaType section - Removed motion.div wrapper to improve interactivity */}
         <motion.div
           ref={koalaTypeRef}
-          style={{ rotate, scale }}
+          style={{ scale }}
           className="min-h-screen relative z-10"
         >
           {showKoalaType ? (

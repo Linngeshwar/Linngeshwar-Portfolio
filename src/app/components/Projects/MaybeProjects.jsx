@@ -27,6 +27,16 @@ export default function MaybeProjects() {
   const projects = [
     {
       id: 1,
+      title: "Pentesting-tool",
+      description:
+        "A collection of tools and scripts for penetration testing, including network scanning, vulnerability analysis, and exploitation.",
+      link: "https://github.com/Linngeshwar/Pentesting-tool",
+      githubLink: "https://github.com/Linngeshwar/Pentesting-tool",
+      image: "/images/projects/pentesting-tool.png",
+      technologies: ["TypeScript"],
+    },
+    {
+      id: 2,
       title: "Blog App",
       description:
         "A full-stack blogging platform that allows users to create, edit, and share content with a modern UI and robust backend functionality.",
@@ -43,7 +53,7 @@ export default function MaybeProjects() {
       ],
     },
     {
-      id: 2,
+      id: 3,
       title: "Password Manager",
       description:
         "A secure application for storing and generating strong passwords with encryption, featuring user authentication and cross-device synchronization.",
@@ -53,7 +63,7 @@ export default function MaybeProjects() {
       technologies: ["JavaScript", "Electron", "Node.js", "Encryption"],
     },
     {
-      id: 3,
+      id: 4,
       title: "Personal Journal",
       description:
         "A private digital journaling application that enables users to document thoughts, track moods, and organize entries with rich text formatting and media support.",
@@ -63,7 +73,7 @@ export default function MaybeProjects() {
       technologies: ["TypeScript", "React", "JavaScript", "CSS", "HTML"],
     },
     {
-      id: 4,
+      id: 5,
       title: "Portfolio",
       description:
         "A responsive personal portfolio website showcasing projects, skills, and professional experience with modern design and smooth animations.",
@@ -73,7 +83,7 @@ export default function MaybeProjects() {
       technologies: ["JavaScript", "React", "CSS", "HTML"],
     },
     {
-      id: 5,
+      id: 6,
       title: "Tech Fiesta Webpage",
       description:
         "Frontend for a tech event management platform with registration, scheduling, and interactive event features developed for Club Asymmetric's tech festival.",
@@ -84,7 +94,7 @@ export default function MaybeProjects() {
       technologies: ["TypeScript", "React", "CSS", "Redux", "Material UI"],
     },
     {
-      id: 6,
+      id: 7,
       title: "Asymmetric Website",
       description:
         "Official website frontend for Club Asymmetric showcasing the club's activities, events, team members, and resources with a modern responsive design.",
@@ -96,7 +106,7 @@ export default function MaybeProjects() {
       technologies: ["TypeScript", "React", "JavaScript", "CSS", "Next.js"],
     },
     {
-      id: 7,
+      id: 8,
       title: "Recipe App",
       description:
         "An interactive recipe application allowing users to discover, save, and share cooking recipes with features like ingredient filtering and step-by-step instructions.",
