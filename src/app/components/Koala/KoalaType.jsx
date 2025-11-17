@@ -22,6 +22,7 @@ export default function KoalaType() {
   const [correctChars, setCorrectChars] = useState(0);
   const [totalChars, setTotalChars] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [isInView, setIsInView] = useState(false);
   const containerRef = useRef(null);
   const textareaRef = useRef(null);
 
@@ -330,13 +331,17 @@ export default function KoalaType() {
   );
 
   useEffect(() => {
+    if (!isInView) return;
+
     if (textareaRef.current) {
       textareaRef.current.focus();
     }
-  }, [words]);
+  }, [words, isInView]);
 
   // Focus textarea when game starts or resets
   useEffect(() => {
+    if (!isInView) return;
+
     if (containerRef.current) {
       containerRef.current.focus();
     }
@@ -344,14 +349,40 @@ export default function KoalaType() {
     if (textareaRef.current) {
       textareaRef.current.focus();
     }
-  }, [words]);
+  }, [words, isInView]);
 
   // Set up key and input event handlers
   useEffect(() => {
+    if (!isInView) return;
+
     const handleKeyDown = (e) => handleKeyPress(e);
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [handleKeyPress]);
+  }, [handleKeyPress, isInView]);
+
+  // Intersection Observer to detect when component is visible
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+        // Blur textarea when not in view to prevent focus stealing
+        if (!entry.isIntersecting && textareaRef.current) {
+          textareaRef.current.blur();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(containerRef.current);
+
+    return () => {
+      if (containerRef.current) {
+        observer.unobserve(containerRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     fetchWords();
@@ -375,11 +406,11 @@ export default function KoalaType() {
       const errorsMade = errors[errorIndex];
 
       if (errorsMade) {
-        // Incorrect character
-        return "text-gray-500 bg-white/10"; // Monochromatic error styling
+        // Incorrect character - RED
+        return "text-red-500 bg-red-500/20";
       } else {
-        // Correct character
-        return "text-white";
+        // Correct character - GREEN
+        return "text-green-500";
       }
     }
 

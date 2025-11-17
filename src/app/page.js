@@ -11,6 +11,7 @@ import Footer from "./components/Footer/Footer";
 import { motion, useTransform, useScroll } from "framer-motion";
 import { useRef } from "react";
 import Lenis from "lenis";
+import ExpandableCardDemo from "@/components/expandable-card-demo-grid";
 
 // Import KoalaType lazily
 const KoalaType = dynamic(() => import("./components/Koala/KoalaType"), {

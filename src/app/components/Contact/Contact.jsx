@@ -44,13 +44,23 @@ export default function Contact() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission - replace with your actual form handling
     try {
-      // You can integrate with services like Formspree, Netlify Forms, or EmailJS
-      await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate API call
+      const response = await fetch(process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-      setSubmitStatus("Message sent successfully! I'll get back to you soon.");
-      setFormData({ name: "", email: "", message: "" });
+      if (response.ok) {
+        setSubmitStatus(
+          "Message sent successfully! I'll get back to you soon."
+        );
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        setSubmitStatus("Something went wrong. Please try again.");
+      }
     } catch (error) {
       setSubmitStatus("Something went wrong. Please try again.");
     } finally {
