@@ -4,6 +4,7 @@ import Squares from "@/Backgrounds/Squares/Squares";
 import Particles from "@/Backgrounds/Particles/Particles";
 import CustomCursor from "./components/Cursor/CustomCursor";
 import { CursorProvider } from "./context/CursorContext";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,6 +29,7 @@ export default function RootLayout({ children }) {
       >
         <CursorProvider>
           <CustomCursor />
+          <Toaster position="top-right" reverseOrder={false} />
           {children}
           <div className="fixed inset-0 z-[-1] overflow-hidden">
             <Particles particleCount={200} alphaParticles={true} />

@@ -2,49 +2,54 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
+import { CometCard } from "@/components/ui/comet-card";
 
 export default function QuickFactsCarousel() {
   const facts = [
     {
       id: 1,
-      title: "Coffee Addict ☕",
-      description: "I've had 6 cups of coffee in a single coding session!",
-      gradient: "from-amber-500 via-orange-500 to-red-500",
-      icon: "☕",
+      title: "Rubik's Cube Solver 🧩",
+      description:
+        "I can solve a Rubik's Cube in under 30 seconds — love practicing algorithms and speedsolving.",
+      gradient: "from-slate-900 via-purple-800 to-slate-900",
+      icon: "🧩",
     },
     {
       id: 2,
       title: "Music Lover 🎵",
-      description: "Laufey's 'From The Start' has played 500+ times!",
-      gradient: "from-pink-500 via-rose-500 to-purple-500",
+      description:
+        "Favorites include Billie, Chappell, Laufey and Olivia — a wide mix on repeat.",
+      gradient: "from-purple-900 via-slate-900 to-purple-900",
       icon: "🎵",
     },
     {
       id: 3,
-      title: "Gaming Enthusiast 🎮",
-      description: "Built a university replica in Minecraft in one sitting!",
-      gradient: "from-green-500 via-emerald-500 to-teal-500",
-      icon: "🎮",
+      title: "Sitcom Fan 📺",
+      description:
+        "Big into sitcoms — The Office, Friends, How I Met Your Mother, Brooklyn Nine-Nine, and The Big Bang Theory are all favorites.",
+      gradient: "from-purple-900/50 via-slate-900 to-purple-900/50",
+      icon: "📺",
     },
     {
       id: 4,
-      title: "The Office Fan 📺",
-      description: "Watched it 4 times, can quote almost every episode!",
-      gradient: "from-blue-500 via-cyan-500 to-sky-500",
-      icon: "📺",
+      title: "Gaming Enthusiast 🎮",
+      description:
+        "I love starting fresh Minecraft worlds over and over — the early game grind never gets old!",
+      gradient: "from-slate-900 via-purple-900/40 to-slate-800",
+      icon: "🎮",
     },
     {
       id: 5,
       title: "Dog Person 🐕",
       description: "Every programmer needs a debugging duck... or dog!",
-      gradient: "from-yellow-500 via-amber-500 to-orange-500",
+      gradient: "from-slate-800 via-purple-900/30 to-slate-900",
       icon: "🐕",
     },
     {
       id: 6,
       title: "Indoor Enthusiast 🏠",
-      description: "Perfect weekend = coding + snacks + good music!",
-      gradient: "from-indigo-500 via-purple-500 to-pink-500",
+      description: "Perfect weekend = gaming + coding + snacks + good music!",
+      gradient: "from-purple-900 via-slate-800 to-purple-900/60",
       icon: "🏠",
     },
   ];
@@ -96,7 +101,7 @@ export default function QuickFactsCarousel() {
   };
 
   return (
-    <div className="w-full py-20 px-8 bg-gradient-to-br from-neutral-950 via-neutral-900 to-neutral-950">
+    <div className="w-full py-20 px-8 ">
       <div className="max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -105,10 +110,10 @@ export default function QuickFactsCarousel() {
           viewport={{ once: true }}
         >
           <h2 className="text-5xl font-bold text-center mb-4 bg-gradient-to-r from-white to-neutral-400 bg-clip-text text-transparent">
-            Quick Facts Carousel
+            FUNdamental Facts
           </h2>
           <p className="text-neutral-400 text-center mb-12 text-lg">
-            Swipe or click to explore! 👈👉
+            Swipe or tap to discover a few personal highlights 👈👉
           </p>
 
           <div className="relative h-96 flex items-center justify-center overflow-hidden">
@@ -139,39 +144,45 @@ export default function QuickFactsCarousel() {
                 }}
                 onMouseEnter={() => setIsPaused(true)}
                 onMouseLeave={() => setIsPaused(false)}
-                className={`absolute w-full max-w-2xl h-80 bg-gradient-to-br ${facts[currentIndex].gradient} rounded-3xl shadow-2xl border-2 border-white/20 p-8 flex flex-col items-center justify-center cursor-grab active:cursor-grabbing`}
+                className="absolute w-full max-w-2xl h-80 cursor-grab active:cursor-grabbing"
               >
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ delay: 0.2, type: "spring" }}
-                  className="text-8xl mb-6"
-                >
-                  {facts[currentIndex].icon}
-                </motion.div>
-                <motion.h3
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 }}
-                  className="text-4xl font-bold text-white mb-4 text-center"
-                >
-                  {facts[currentIndex].title}
-                </motion.h3>
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
-                  className="text-xl text-white/90 text-center max-w-lg"
-                >
-                  {facts[currentIndex].description}
-                </motion.p>
+                <CometCard className="w-full h-full">
+                  <div
+                    className={`w-full h-full bg-gradient-to-br ${facts[currentIndex].gradient} rounded-3xl p-8 flex flex-col items-center justify-center`}
+                  >
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ delay: 0.2, type: "spring" }}
+                      className="text-8xl mb-6"
+                    >
+                      {facts[currentIndex].icon}
+                    </motion.div>
+                    <motion.h3
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.3 }}
+                      className="text-4xl font-bold text-white mb-4 text-center"
+                    >
+                      {facts[currentIndex].title}
+                    </motion.h3>
+                    <motion.p
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.4 }}
+                      className="text-xl text-white/90 text-center max-w-lg"
+                    >
+                      {facts[currentIndex].description}
+                    </motion.p>
+                  </div>
+                </CometCard>
               </motion.div>
             </AnimatePresence>
 
             {/* Navigation Buttons */}
             <button
               onClick={() => paginate(-1)}
-              className="absolute left-4 z-10 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white rounded-full p-4 transition-all duration-300 border border-white/20"
+              className="absolute left-4 z-10 bg-purple-900/20 hover:bg-purple-900/40 backdrop-blur-sm text-white rounded-full p-4 transition-all duration-300 border border-purple-500/30"
             >
               <svg
                 className="w-6 h-6"
@@ -189,7 +200,7 @@ export default function QuickFactsCarousel() {
             </button>
             <button
               onClick={() => paginate(1)}
-              className="absolute right-4 z-10 bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white rounded-full p-4 transition-all duration-300 border border-white/20"
+              className="absolute right-4 z-10 bg-purple-900/20 hover:bg-purple-900/40 backdrop-blur-sm text-white rounded-full p-4 transition-all duration-300 border border-purple-500/30"
             >
               <svg
                 className="w-6 h-6"
@@ -218,8 +229,8 @@ export default function QuickFactsCarousel() {
                 }}
                 className={`h-3 rounded-full transition-all duration-300 ${
                   index === currentIndex
-                    ? "w-8 bg-white"
-                    : "w-3 bg-white/30 hover:bg-white/50"
+                    ? "w-8 bg-purple-500"
+                    : "w-3 bg-purple-500/30 hover:bg-purple-500/50"
                 }`}
               />
             ))}

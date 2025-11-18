@@ -69,7 +69,7 @@ export default function MaybeProjects() {
         "A private digital journaling application that enables users to document thoughts, track moods, and organize entries with rich text formatting and media support.",
       link: "https://github.com/Linngeshwar/Personal-Journal",
       githubLink: "https://github.com/Linngeshwar/Personal-Journal",
-      image: "/images/projects/personal-journal.png",
+      image: "/images/projects/journal-app.png",
       technologies: ["TypeScript", "React", "JavaScript", "CSS", "HTML"],
     },
     {
@@ -117,6 +117,7 @@ export default function MaybeProjects() {
 
   return (
     <div
+      id="projects"
       ref={containerRef}
       className="relative"
       style={{ height: `${(projects.length + 3) * 100}vh` }}

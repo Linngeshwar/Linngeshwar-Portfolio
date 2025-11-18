@@ -40,6 +40,29 @@ export default function Navbar() {
     setIsMenuOpen(false);
   }, []);
 
+  const handleNavClick = useCallback(
+    (e, item) => {
+      if (item === "Resume") return; // Let Resume link work normally
+
+      e.preventDefault();
+      closeMenu();
+
+      // Use setTimeout to ensure menu closes before scrolling
+      setTimeout(() => {
+        const targetId = item.toLowerCase();
+        const element = document.getElementById(targetId);
+
+        if (element) {
+          element.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }
+      }, 300); // Wait for menu close animation
+    },
+    [closeMenu]
+  );
+
   const buttonClasses = useMemo(
     () =>
       `px-6 py-3 text-lg font-medium rounded-lg transition-all duration-300 ease-in-out ${
@@ -53,7 +76,7 @@ export default function Navbar() {
   return (
     <>
       {/* Main Navbar */}
-      <nav className="fixed flex flex-col justify-center items-center top-8 right-0 transform -translate-x-1/2 z-40 outline-none">
+      <nav className="fixed flex flex-col justify-center items-center top-8 right-0 transform -translate-x-1/2 z-50 outline-none">
         <CursorButton onClick={toggleMenu} className={buttonClasses}>
           <span className="relative block h-[1.5em] overflow-hidden">
             <AnimatePresence mode="wait" initial={false}>
@@ -80,7 +103,7 @@ export default function Navbar() {
             animate={{ x: 0 }}
             exit={{ x: "-100%" }}
             transition={{ duration: 0.6, ease: [0.6, 0.01, 0.05, 0.95] }}
-            className="fixed inset-0 bg-[#000000db] z-30 flex flex-col items-center justify-center"
+            className="fixed inset-0 bg-[#000000db] z-40 flex flex-col items-center justify-center"
           >
             {/* Close button */}
             {/* Navigation Links */}
@@ -104,7 +127,7 @@ export default function Navbar() {
                         : `#${item.toLowerCase()}`
                     }
                     target={item === "Resume" ? "_blank" : undefined}
-                    onClick={closeMenu}
+                    onClick={(e) => handleNavClick(e, item)}
                     className="block relative px-8 py-4 text-4xl md:text-6xl font-bold text-white transition-colors duration-300 group-hover:text-black z-10"
                   >
                     {/* Background slide effect */}

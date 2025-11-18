@@ -8,14 +8,10 @@ import Skills from "./components/Skills/Skills";
 import Contact from "./components/Contact/Contact";
 import MaybeProjects from "./components/Projects/MaybeProjects";
 import Footer from "./components/Footer/Footer";
-import FunFactsFlip from "./components/About/FunFactsFlip";
 import QuickFactsCarousel from "./components/About/QuickFactsCarousel";
-import MatchingGame from "./components/About/MatchingGame";
-import { motion, useTransform, useScroll } from "framer-motion";
 import { useRef } from "react";
 import Lenis from "lenis";
-import Projects from "./components/Projects/ProjectsFinally";
-// Import KoalaType lazily
+
 const KoalaType = dynamic(() => import("./components/Koala/KoalaType"), {
   loading: () => (
     <div className="h-screen flex items-center justify-center text-neutral-400">
@@ -68,10 +64,7 @@ export default function Home() {
     <div>
       <Navbar />
       <About />
-      <FunFactsFlip />
       <QuickFactsCarousel />
-      <MatchingGame />
-
       <MaybeProjects />
 
       {/* Sticky scroll container */}
