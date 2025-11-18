@@ -60,45 +60,17 @@ export default function Home() {
       lenis.destroy();
     };
   }, []);
-  const containerRef = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
-
-  useEffect(() => {
-    const unsubscribe = scrollYProgress.on("change", (v) => {
-      console.log("scrollYProgress:", v);
-    });
-    return unsubscribe;
-  }, [scrollYProgress]);
-
-  // const scale = useTransform(scrollYProgress, [0.9, 1], [1, 0.7]);
-
-  const opacity = useTransform(scrollYProgress, [0.9, 1], [1, 0]);
-  // const antiRotate = useTransform(scrollYProgress, [0.9, 1], [0, 30]);
-
-  // const rotate = useTransform(scrollYProgress, [0.9, 1], [30, 0]);
-  const scale = useTransform(scrollYProgress, [0.9, 1], [0.5, 1]);
-  // const x = useTransform(scrollYProgress, [0.9, 1], ["-100%", "0% "]);
 
   return (
     <div>
       <Navbar />
       <About />
-      {/* <Projects /> */}
-      <div className="min-h-screen" ref={containerRef}>
-        {/* Projects section with opacity fade */}
-        <motion.div className="sticky top-0" style={{ opacity }}>
-          <MaybeProjects />
-        </motion.div>
+      <MaybeProjects />
 
-        {/* KoalaType section - Removed motion.div wrapper to improve interactivity */}
-        <motion.div
-          ref={koalaTypeRef}
-          style={{ scale }}
-          className="min-h-screen relative z-10"
-        >
+      {/* Sticky scroll container */}
+      <div className="relative">
+        {/* KoalaType section */}
+        <div ref={koalaTypeRef} className="min-h-screen sticky top-0 z-10">
           {showKoalaType ? (
             <Suspense
               fallback={
@@ -114,11 +86,23 @@ export default function Home() {
               Scroll down to load typing game...
             </div>
           )}
-        </motion.div>
+        </div>
+
+        {/* Skills section - sticks on top of KoalaType */}
+        <div className="min-h-screen sticky top-0 z-20">
+          <Skills />
+        </div>
+
+        {/* Contact section - sticks on top of Skills */}
+        <div className="min-h-screen sticky top-0 z-30">
+          <Contact />
+        </div>
       </div>
-      <Skills />
-      <Contact />
-      <Footer />
+
+      {/* Footer section - static after sticky sections */}
+      <div className="relative z-50">
+        <Footer />
+      </div>
     </div>
   );
 }

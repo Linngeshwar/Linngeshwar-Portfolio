@@ -42,7 +42,7 @@ export default function MaybeProjects() {
         "A full-stack blogging platform that allows users to create, edit, and share content with a modern UI and robust backend functionality.",
       link: "https://github.com/Linngeshwar/Blog-app",
       githubLink: "https://github.com/Linngeshwar/Blog-app",
-      image: "https://placehold.co/600x400/1e293b/ffffff?text=Blog+App",
+      image: "/images/projects/blog-app.png",
       technologies: [
         "TypeScript",
         "Next.js",
@@ -59,7 +59,7 @@ export default function MaybeProjects() {
         "A secure application for storing and generating strong passwords with encryption, featuring user authentication and cross-device synchronization.",
       link: "https://github.com/Linngeshwar/password-manager",
       githubLink: "https://github.com/Linngeshwar/password-manager",
-      image: "https://placehold.co/600x400/1e293b/ffffff?text=Password+Manager",
+      image: "/images/projects/password-manager.png",
       technologies: ["JavaScript", "Electron", "Node.js", "Encryption"],
     },
     {
@@ -69,7 +69,7 @@ export default function MaybeProjects() {
         "A private digital journaling application that enables users to document thoughts, track moods, and organize entries with rich text formatting and media support.",
       link: "https://github.com/Linngeshwar/Personal-Journal",
       githubLink: "https://github.com/Linngeshwar/Personal-Journal",
-      image: "https://placehold.co/600x400/1e293b/ffffff?text=Personal+Journal",
+      image: "/images/projects/personal-journal.png",
       technologies: ["TypeScript", "React", "JavaScript", "CSS", "HTML"],
     },
     {
@@ -79,7 +79,7 @@ export default function MaybeProjects() {
         "A responsive personal portfolio website showcasing projects, skills, and professional experience with modern design and smooth animations.",
       link: "https://github.com/Linngeshwar/Portfolio",
       githubLink: "https://github.com/Linngeshwar/Portfolio",
-      image: "https://placehold.co/600x400/1e293b/ffffff?text=Portfolio",
+      image: "/images/projects/portfolio.png",
       technologies: ["JavaScript", "React", "CSS", "HTML"],
     },
     {
@@ -89,8 +89,7 @@ export default function MaybeProjects() {
         "Frontend for a tech event management platform with registration, scheduling, and interactive event features developed for Club Asymmetric's tech festival.",
       link: "https://github.com/Club-Asymmetric/Tech-fiesta-frontend",
       githubLink: "https://github.com/Club-Asymmetric/Tech-fiesta-frontend",
-      image:
-        "https://placehold.co/600x400/1e293b/ffffff?text=Tech+Fiesta+Frontend",
+      image: "/images/projects/tech-fiesta.png",
       technologies: ["TypeScript", "React", "CSS", "Redux", "Material UI"],
     },
     {
@@ -101,8 +100,7 @@ export default function MaybeProjects() {
       link: "https://github.com/Club-Asymmetric/Asymmetric-Website-frontend",
       githubLink:
         "https://github.com/Club-Asymmetric/Asymmetric-Website-frontend",
-      image:
-        "https://placehold.co/600x400/1e293b/ffffff?text=Asymmetric+Website",
+      image: "/images/projects/asymmetric-website.png",
       technologies: ["TypeScript", "React", "JavaScript", "CSS", "Next.js"],
     },
     {
@@ -112,7 +110,7 @@ export default function MaybeProjects() {
         "An interactive recipe application allowing users to discover, save, and share cooking recipes with features like ingredient filtering and step-by-step instructions.",
       link: "https://github.com/Linngeshwar/Recipe-App",
       githubLink: "https://github.com/Linngeshwar/Recipe-App",
-      image: "https://placehold.co/600x400/1e293b/ffffff?text=Recipe+App",
+      image: "/images/projects/recipe-app.png",
       technologies: ["JavaScript", "React", "CSS", "HTML", "API Integration"],
     },
   ];
@@ -161,19 +159,17 @@ const ProjectCard = ({
   return (
     <motion.div
       style={{ scale, top: `calc(-10% + ${index * 20}px)` }}
-      className="h-[100vh] sticky flex flex-col items-center justify-center "
+      className="h-[100vh] sticky flex flex-col items-center justify-center"
     >
       <motion.div
-        className="project-card w-7xl grid grid-cols-2 gap-8 my-5 mx-16 p-8 bg-gradient-to-br from-neutral-900 to-neutral-950 border border-neutral-800 shadow-2xl rounded-2xl transition-all duration-300 hover:border-neutral-700 group"
+        className="project-card w-full max-w-7xl grid grid-cols-1 lg:grid-cols-5 gap-6 my-5 mx-8 lg:mx-16 p-6 lg:p-8 bg-gradient-to-br from-neutral-900 to-neutral-950 border border-neutral-800 shadow-2xl rounded-2xl transition-all duration-300 hover:border-neutral-700 group"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        // style={{ scale }}
       >
         {/* Project Image */}
         {image && (
           <motion.div
-            className="w-full h-full rounded-xl overflow-hidden bg-neutral-800 border border-neutral-700"
-            style={{ aspectRatio: "16/9" }}
+            className="lg:col-span-3 w-full rounded-xl overflow-hidden bg-neutral-800 border border-neutral-700 flex items-center justify-center"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
@@ -181,17 +177,17 @@ const ProjectCard = ({
             <img
               src={image}
               alt={title}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500"
             />
           </motion.div>
         )}
 
         {/* Project Details Column */}
-        <div className="flex flex-col justify-between">
+        <div className="lg:col-span-2 flex flex-col justify-between">
           {/* Project Title with GitHub Link */}
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center justify-between mb-3 lg:mb-4">
             <motion.h2
-              className="text-3xl font-bold text-white group-hover:text-neutral-100 transition-colors duration-300"
+              className="text-2xl lg:text-3xl font-bold text-white group-hover:text-neutral-100 transition-colors duration-300"
               animate={
                 isHovered
                   ? {
@@ -239,13 +235,13 @@ const ProjectCard = ({
           </div>
 
           {/* Project Description */}
-          <p className="text-neutral-300 text-lg leading-relaxed mb-6 flex-grow group-hover:text-neutral-200 transition-colors duration-300">
+          <p className="text-neutral-300 text-base lg:text-lg leading-relaxed mb-4 lg:mb-6 flex-grow group-hover:text-neutral-200 transition-colors duration-300">
             {description}
           </p>
 
           {/* Technologies */}
           {technologies.length > 0 && (
-            <div className="flex flex-wrap gap-2 mb-6">
+            <div className="flex flex-wrap gap-2 mb-4 lg:mb-6">
               {technologies.map((tech, index) => (
                 <motion.span
                   key={index}
