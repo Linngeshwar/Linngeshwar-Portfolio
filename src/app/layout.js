@@ -17,8 +17,78 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Linngeshwar's Portfolio",
-  description: "Wow you're actually reading this? Thats crazyyyyy",
+  metadataBase: new URL("https://linngeshwar-portfolio.vercel.app"),
+  title: {
+    default: "Linngeshwar B | Full Stack Developer & Web Engineer",
+    template: "%s | Linngeshwar B",
+  },
+  description:
+    "Wow you're actually reading this? Thats crazyyyyy - Passionate full-stack web developer specializing in React, Next.js, Node.js, and modern web technologies. Explore my portfolio of innovative projects and interactive experiences.",
+  keywords: [
+    "Linngeshwar",
+    "linngeshwar b",
+    "linngeshwar",
+    "Linngeshwar B",
+    "Full Stack Developer",
+    "Web Developer",
+    "React",
+    "Next.js",
+    "Node.js",
+    "TypeScript",
+    "JavaScript",
+    "Portfolio",
+    "Web Engineer",
+    "Frontend Developer",
+    "Backend Developer",
+  ],
+  authors: [{ name: "Linngeshwar B" }],
+  creator: "Linngeshwar B",
+  publisher: "Linngeshwar B",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://linngeshwar-portfolio.vercel.app",
+    title: "Linngeshwar B | Full Stack Developer & Web Engineer",
+    description:
+      "Wow you're actually reading this? Thats crazyyyyy - Passionate full-stack web developer specializing in React, Next.js, Node.js, and modern web technologies. Explore my portfolio of innovative projects and interactive experiences.",
+    siteName: "Linngeshwar B Portfolio",
+    images: [
+      {
+        url: "/og-image.jpg", // Create this image (1200x630px recommended)
+        width: 1200,
+        height: 630,
+        alt: "Linngeshwar B - Full Stack Developer",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Linngeshwar B | Full Stack Developer & Web Engineer",
+    description:
+      "Wow you're actually reading this? Thats crazyyyyy - Passionate full-stack web developer specializing in React, Next.js, Node.js, and modern web technologies.",
+    creator: "@linngeshwar", // Update with your Twitter handle
+    images: ["/og-image.jpg"], // Same image as OpenGraph
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
+  manifest: "/site.webmanifest",
+  alternates: {
+    canonical: "https://linngeshwar-portfolio.vercel.app",
+  },
 };
 
 export default function RootLayout({ children }) {

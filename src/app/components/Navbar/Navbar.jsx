@@ -65,10 +65,10 @@ export default function Navbar() {
 
   const buttonClasses = useMemo(
     () =>
-      `px-6 py-3 text-lg font-medium rounded-lg transition-all duration-300 ease-in-out ${
+      `px-4 sm:px-6 py-2 sm:py-3 text-base sm:text-lg font-medium rounded-lg transition-all duration-300 ease-in-out ${
         isMenuOpen
-          ? "bg-transparent text-white"
-          : "bg-white text-black hover:bg-transparent hover:text-white"
+          ? "bg-transparent text-white border-2 border-white"
+          : "bg-white text-black hover:bg-transparent hover:text-white border-2 border-white"
       }`,
     [isMenuOpen]
   );
@@ -76,21 +76,57 @@ export default function Navbar() {
   return (
     <>
       {/* Main Navbar */}
-      <nav className="fixed flex flex-col justify-center items-end top-8 right-8 z-[200] outline-none">
+      <nav className="fixed flex flex-col justify-center items-end top-4 sm:top-6 md:top-8 right-4 sm:right-6 md:right-8 z-[200] outline-none">
         <CursorButton onClick={toggleMenu} className={buttonClasses}>
-          <span className="relative block h-[1.5em] overflow-hidden">
-            <AnimatePresence mode="wait" initial={false}>
+          <span className="relative flex items-center gap-2 h-[1.5em]">
+            {/* Hamburger Icon for Mobile */}
+            <span className="md:hidden flex flex-col gap-1 w-6">
               <motion.span
-                key={isMenuOpen ? "close" : "menu"}
-                initial={{ y: isMenuOpen ? 20 : -20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: isMenuOpen ? 20 : -20, opacity: 0 }}
-                transition={{ duration: 0.25, ease: "easeInOut" }}
-                className="w-full block text-inherit"
-              >
-                {isMenuOpen ? "Close" : "Menu"}
-              </motion.span>
-            </AnimatePresence>
+                animate={{
+                  rotate: isMenuOpen ? 45 : 0,
+                  y: isMenuOpen ? 8 : 0,
+                }}
+                transition={{ duration: 0.3 }}
+                className={`h-0.5 w-full ${
+                  isMenuOpen ? "bg-white" : "bg-black"
+                } rounded`}
+              />
+              <motion.span
+                animate={{
+                  opacity: isMenuOpen ? 0 : 1,
+                }}
+                transition={{ duration: 0.3 }}
+                className={`h-0.5 w-full ${
+                  isMenuOpen ? "bg-white" : "bg-black"
+                } rounded`}
+              />
+              <motion.span
+                animate={{
+                  rotate: isMenuOpen ? -45 : 0,
+                  y: isMenuOpen ? -8 : 0,
+                }}
+                transition={{ duration: 0.3 }}
+                className={`h-0.5 w-full ${
+                  isMenuOpen ? "bg-white" : "bg-black"
+                } rounded`}
+              />
+            </span>
+
+            {/* Text for Desktop */}
+            <span className="hidden md:block relative overflow-hidden">
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.span
+                  key={isMenuOpen ? "close" : "menu"}
+                  initial={{ y: isMenuOpen ? 20 : -20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: isMenuOpen ? 20 : -20, opacity: 0 }}
+                  transition={{ duration: 0.25, ease: "easeInOut" }}
+                  className="w-full block text-inherit"
+                >
+                  {isMenuOpen ? "Close" : "Menu"}
+                </motion.span>
+              </AnimatePresence>
+            </span>
           </span>
         </CursorButton>
       </nav>
@@ -107,7 +143,7 @@ export default function Navbar() {
           >
             {/* Close button */}
             {/* Navigation Links */}
-            <div className="flex flex-col items-start space-y-8">
+            <div className="flex flex-col items-start space-y-4 sm:space-y-6 md:space-y-8">
               {navItems.map((item, index) => (
                 <motion.div
                   key={item}
@@ -128,7 +164,7 @@ export default function Navbar() {
                     }
                     target={item === "Resume" ? "_blank" : undefined}
                     onClick={(e) => handleNavClick(e, item)}
-                    className="block relative px-8 py-4 text-4xl md:text-6xl font-bold text-white transition-colors duration-300 group-hover:text-black z-10"
+                    className="block relative px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white transition-colors duration-300 group-hover:text-black z-10"
                   >
                     {/* Background slide effect */}
                     <div className="absolute inset-0 bg-white transform translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500 ease-out"></div>
@@ -148,7 +184,7 @@ export default function Navbar() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.8 }}
-              className="absolute bottom-8 left-8 text-white text-sm opacity-50"
+              className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-4 sm:left-6 md:left-8 text-white text-xs sm:text-sm opacity-50"
             >
               Navigate to explore
             </motion.div>

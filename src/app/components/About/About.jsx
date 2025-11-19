@@ -13,10 +13,10 @@ export default function About() {
   return (
     <div
       id="about"
-      className="min-h-screen flex flex-col justify-between py-10"
+      className="min-h-screen flex flex-col justify-between py-10 px-4 sm:px-8 md:px-12 lg:px-16"
     >
       {/* Top Section - Name and Description */}
-      <div className="container mx-auto px-16">
+      <div className="container mx-auto">
         {/* Linngeshwar Name section */}
         <motion.div
           className="mb-12"
@@ -25,7 +25,7 @@ export default function About() {
           transition={{ duration: 1, ease: "easeOut" }}
         >
           <motion.h1
-            className="text-9xl font-bold"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-bold"
             initial="hidden"
             animate="visible"
             variants={{
@@ -94,10 +94,12 @@ export default function About() {
             <ShinyText
               duration={1}
               text="I am a passionate web developer with a keen interest in creating dynamic and responsive web applications who is trying to figure things out. My expertise lies in leveraging modern technologies to build user-friendly interfaces and seamless user experiences."
-              className="text-2xl"
+              className="text-base sm:text-lg md:text-xl lg:text-2xl"
             />
-            <div className="flex flex-row items-center gap-4">
-              <p className="text-2xl">I am a</p>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl">
+                I am a
+              </p>
               <RotatingText
                 texts={[
                   "Developer",
@@ -122,17 +124,17 @@ export default function About() {
       </div>
 
       {/* Bottom Section - Quiz and Image */}
-      <div className="container mx-auto px-16 grid grid-cols-2 gap-12 items-end">
+      <div className="container mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-end">
         {/* Fun and Interactive section */}
-        <div className="flex justify-start items-end">
+        <div className="flex justify-center lg:justify-start items-end order-2 lg:order-1">
           <ThisOrThat />
         </div>
         {/* Image */}
-        <div className="flex justify-end items-end">
+        <div className="flex justify-center lg:justify-end items-end order-1 lg:order-2">
           <img
             src="/images/we bare bears.png"
             alt="We Bare Bears"
-            className="max-w-md"
+            className="w-full max-w-xs sm:max-w-sm md:max-w-md"
           />
         </div>
       </div>
