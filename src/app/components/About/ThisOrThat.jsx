@@ -33,18 +33,25 @@ export default function ThisOrThat() {
       correctOption: "Definitely Yes",
       specialQuestion: true,
     },
-    { option1: "Minecraft", option2: "Sekiro", correctOption: "Minecraft" },
+    { option1: "Minecraft", option2: "GTA V", correctOption: "Minecraft" },
     { option1: "Friends", option2: "The Office", correctOption: "The Office" },
     { option1: "Cat", option2: "Dog", correctOption: "Dog" },
     { option1: "Indoor", option2: "Outdoor", correctOption: "Indoor" },
     { option1: "Sure", option2: "Hell yeah", correctOption: "Hell yeah" },
-    { option1: "Coffee", option2: "Tea", correctOption: "Coffee" },
+    { option1: "Chocolate", option2: "Strawberry", correctOption: "Chocolate" },
     { option1: "Morning", option2: "Night", correctOption: "Night" },
     { option1: "Movies", option2: "Series", correctOption: "Series" },
     { option1: "Pizza", option2: "Burger", correctOption: "Pizza" },
     { option1: "Summer", option2: "Winter", correctOption: "Winter" },
     { option1: "Books", option2: "Audiobooks", correctOption: "Books" },
     { option1: "Android", option2: "iOS", correctOption: "Android" },
+    { option1: "Mumbo", option2: "Grian", correctOption: "Grian" },
+    {
+      option1: "Blonde Blazer",
+      option2: "Invisigal",
+      correctOption: "Blonde Blazer",
+    },
+    { option1: "God of War", option2: "RDR2", correctOption: "RDR2" },
   ];
 
   const wrongAnswerToastMessage = [
@@ -99,14 +106,17 @@ export default function ThisOrThat() {
     "What is my go-to sitcom?",
     "Am I a cat person or a dog person?",
     "Am I an indoor person or an outdoor person?",
-    "Is Laufey an amazing artist?",
-    "What do I prefer in the morning?",
+    "Is Billie an amazing artist?",
+    "What is my favorite ice cream flavor?",
     "Am I a morning person or a night owl?",
     "Do I prefer movies or series?",
     "Pizza or burger?",
     "Summer or winter?",
     "Physical books or audiobooks?",
     "Android or iOS?",
+    "Mumbo or Grian?",
+    "Blonde Blazer or Invisigal?",
+    "RDR2 or God of War?",
   ];
 
   const [current, setCurrent] = useState(0);
@@ -340,11 +350,13 @@ export default function ThisOrThat() {
     setCurrentToastErrorMessage(0);
     setSelectedAnswer(null);
     setIsCorrect(null);
+    setMenuHover(false);
   };
 
   const currentQuestion = questionOrder[current];
   const personalityResult = getPersonalityResult();
-  const progressPercentage = ((current + 1) / questions.length) * 100;
+  const progressPercentage =
+    questionOrder.length > 0 ? ((current + 1) / questionOrder.length) * 100 : 0;
 
   return (
     <motion.div
@@ -363,14 +375,14 @@ export default function ThisOrThat() {
       </div>
 
       {/* Progress Bar */}
-      {!showScore && (
+      {!showScore && questionOrder.length > 0 && (
         <div className="mb-4">
           <div className="flex justify-between items-center mb-2">
             <span className="text-sm text-gray-400">
-              Question {current + 1} of {questions.length}
+              Question {current + 1} of {questionOrder.length}
             </span>
             <span className="text-sm text-gray-400">
-              Score: {score}/{questions.length}
+              Score: {score}/{questionOrder.length}
             </span>
           </div>
           <div className="w-full bg-gray-800 rounded-full h-2.5 overflow-hidden">

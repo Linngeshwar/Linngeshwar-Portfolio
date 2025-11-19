@@ -13,7 +13,7 @@ export default function About() {
   return (
     <div
       id="about"
-      className="min-h-screen flex flex-col justify-between py-12"
+      className="min-h-screen flex flex-col justify-between py-10"
     >
       {/* Top Section - Name and Description */}
       <div className="container mx-auto px-16">
@@ -90,7 +90,7 @@ export default function About() {
           </motion.h1>
 
           {/* Description section */}
-          <div className="max-w-4xl space-y-6">
+          <div className="max-w-4xl space-y-6 mt-10">
             <ShinyText
               duration={1}
               text="I am a passionate web developer with a keen interest in creating dynamic and responsive web applications who is trying to figure things out. My expertise lies in leveraging modern technologies to build user-friendly interfaces and seamless user experiences."
@@ -117,23 +117,6 @@ export default function About() {
                 rotationInterval={2000}
               />
             </div>
-
-            {/* Resume Download Button */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1, duration: 0.8 }}
-            >
-              <CursorButton
-                className="bg-white text-black hover:bg-transparent hover:text-white border-2 border-white transition-all duration-300"
-                onClick={() => {
-                  const resumeUrl = "/resume.pdf";
-                  window.open(resumeUrl, "_blank");
-                }}
-              >
-                Download Resume
-              </CursorButton>
-            </motion.div>
           </div>
         </motion.div>
       </div>

@@ -109,7 +109,7 @@ function CustomCursor() {
   // Optimize class concatenation
   const cursorClasses = useMemo(() => {
     const baseClasses =
-      "fixed pointer-events-none z-50 transition-all duration-150 ease-out border-3 mix-blend-difference  ";
+      "fixed pointer-events-none z-[9999] transition-all duration-150 ease-out border-3 mix-blend-difference  ";
 
     if (isMenuHovered) {
       return `${baseClasses} border-white`;

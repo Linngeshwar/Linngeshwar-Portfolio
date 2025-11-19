@@ -43,21 +43,21 @@ export default function Skills() {
       name: "Next.js",
       size: 180,
       category: "frontend",
-      proficiency: 90,
+      proficiency: 80,
       color: "#fff",
     },
     {
       name: "React",
       size: 170,
       category: "frontend",
-      proficiency: 95,
+      proficiency: 80,
       color: "#61dafb",
     },
     {
       name: "JavaScript",
       size: 190,
       category: "language",
-      proficiency: 95,
+      proficiency: 85,
       color: "#f7df1e",
     },
     {
@@ -78,7 +78,7 @@ export default function Skills() {
       name: "Python",
       size: 170,
       category: "language",
-      proficiency: 90,
+      proficiency: 80,
       color: "#3776ab",
     },
     {
@@ -134,7 +134,7 @@ export default function Skills() {
       name: "Django",
       size: 160,
       category: "backend",
-      proficiency: 80,
+      proficiency: 60,
       color: "#092e20",
     },
     {
@@ -152,7 +152,7 @@ export default function Skills() {
     { id: "backend", label: "Backend" },
     { id: "language", label: "Languages" },
     { id: "database", label: "Database" },
-    { id: "tools", label: "Tools" },
+    // { id: "tools", label: "Tools" },
   ];
 
   useEffect(() => {
