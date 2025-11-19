@@ -7,6 +7,7 @@ import About from "./components/About/About";
 import Skills from "./components/Skills/Skills";
 import Contact from "./components/Contact/Contact";
 import MaybeProjects from "./components/Projects/MaybeProjects";
+import ProjectsFinally from "./components/Projects/ProjectsFinally";
 import Footer from "./components/Footer/Footer";
 import QuickFactsCarousel from "./components/About/QuickFactsCarousel";
 import { useRef } from "react";
@@ -65,7 +66,8 @@ export default function Home() {
       <Navbar />
       <About />
       <QuickFactsCarousel />
-      <MaybeProjects />
+      {/* <MaybeProjects /> */}
+      <ProjectsFinally />
 
       {/* Sticky scroll container */}
       <div className="relative">
