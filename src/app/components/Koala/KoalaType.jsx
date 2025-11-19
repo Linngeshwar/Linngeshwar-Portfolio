@@ -482,18 +482,18 @@ export default function KoalaType() {
   return (
     <div
       id="koala"
-      className="min-h-screen flex flex-col items-center justify-center p-8 z-10 bg-gradient-to-tl from-[hsl(0,0%,0%)] via-[hsl(210,100%,9%)] to-[hsla(0, 0%, 10%)]"
+      className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 md:p-8 z-10 bg-gradient-to-tl from-[hsl(0,0%,0%)] via-[hsl(210,100%,9%)] to-[hsla(0, 0%, 10%)]"
     >
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="w-full max-w-6xl"
+        className="w-full max-w-6xl px-2 sm:px-4"
       >
         {/* Header */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-6 sm:mb-8">
           <motion.h1
-            className="text-6xl font-bold mb-4"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4"
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.5 }}
@@ -515,14 +515,14 @@ export default function KoalaType() {
               </motion.span>
             ))}
           </motion.h1>
-          <p className="text-gray-400 text-lg">
+          <p className="text-gray-400 text-sm sm:text-base md:text-lg px-2">
             Test your typing speed and accuracy
           </p>
         </div>
 
         {/* Difficulty Selector */}
-        <div className="flex justify-center mb-8">
-          <div className="flex border border-white/20 rounded-lg p-1 gap-1">
+        <div className="flex justify-center mb-6 sm:mb-8">
+          <div className="flex flex-wrap justify-center border border-white/20 rounded-lg p-1 gap-1">
             {Object.entries(difficulties).map(([key, diff]) => (
               <CursorButton
                 key={key}
@@ -530,7 +530,7 @@ export default function KoalaType() {
                   setDifficulty(key);
                   setMenuHover(false);
                 }}
-                className={`px-4 py-2 rounded-md transition-all duration-200 ${
+                className={`px-3 py-1.5 sm:px-4 sm:py-2 text-sm sm:text-base rounded-md transition-all duration-200 ${
                   difficulty === key
                     ? "bg-white text-black shadow-lg"
                     : "text-gray-400 hover:text-white hover:bg-white/10"
@@ -544,23 +544,29 @@ export default function KoalaType() {
         </div>
 
         {/* Stats Bar */}
-        <div className="flex justify-center items-center gap-8 mb-6">
+        <div className="flex justify-center items-center gap-4 sm:gap-6 md:gap-8 mb-4 sm:mb-6">
           <div className="text-center">
-            <div className="text-2xl font-bold text-white">{wpm}</div>
-            <div className="text-sm text-gray-400">WPM</div>
+            <div className="text-xl sm:text-2xl font-bold text-white">
+              {wpm}
+            </div>
+            <div className="text-xs sm:text-sm text-gray-400">WPM</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-white">{accuracy}%</div>
-            <div className="text-sm text-gray-400">Accuracy</div>
+            <div className="text-xl sm:text-2xl font-bold text-white">
+              {accuracy}%
+            </div>
+            <div className="text-xs sm:text-sm text-gray-400">Accuracy</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-white">{timeElapsed}s</div>
-            <div className="text-sm text-gray-400">Time</div>
+            <div className="text-xl sm:text-2xl font-bold text-white">
+              {timeElapsed}s
+            </div>
+            <div className="text-xs sm:text-sm text-gray-400">Time</div>
           </div>
         </div>
 
         {/* Progress Bar */}
-        <div className="w-full bg-white/10 rounded-full h-2 mb-8">
+        <div className="w-full bg-white/10 rounded-full h-2 mb-6 sm:mb-8">
           <motion.div
             className="bg-white h-2 rounded-full"
             initial={{ width: 0 }}
@@ -573,20 +579,25 @@ export default function KoalaType() {
         <motion.div
           ref={containerRef}
           tabIndex={0}
-          className="backdrop-blur-sm border border-white/20 rounded-xl p-8 min-h-[200px] w-full max-w-full overflow-hidden focus:outline-none focus:ring-2 focus:ring-white/30"
+          className="backdrop-blur-sm border border-white/20 rounded-xl p-4 sm:p-6 md:p-8 min-h-[150px] sm:min-h-[200px] w-full max-w-full overflow-hidden focus:outline-none focus:ring-2 focus:ring-white/30"
           initial={{ scale: 0.95 }}
           animate={{ scale: 1 }}
           transition={{ duration: 0.4 }}
         >
           {loading ? (
             <div className="flex items-center justify-center h-32">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
-              <span className="ml-3 text-gray-400">Loading words...</span>
+              <div className="animate-spin rounded-full h-6 w-6 sm:h-8 sm:w-8 border-b-2 border-white"></div>
+              <span className="ml-3 text-sm sm:text-base text-gray-400">
+                Loading words...
+              </span>
             </div>
           ) : words.length > 0 ? (
-            <div className="text-2xl leading-relaxed font-mono max-w-full break-words flex flex-wrap">
+            <div className="text-base sm:text-xl md:text-2xl leading-relaxed font-mono max-w-full break-words flex flex-wrap">
               {words.map((word, wordIndex) => (
-                <span key={wordIndex} className="mr-3 mb-2 inline-block">
+                <span
+                  key={wordIndex}
+                  className="mr-2 sm:mr-3 mb-1 sm:mb-2 inline-block"
+                >
                   {word.split("").map((char, charIndex) => (
                     <span
                       key={`${wordIndex}-${charIndex}`}
@@ -602,23 +613,23 @@ export default function KoalaType() {
               ))}
             </div>
           ) : (
-            <div className="text-center text-gray-400">
+            <div className="text-center text-sm sm:text-base text-gray-400">
               Click "New Game" to start
             </div>
           )}
         </motion.div>
 
         {/* Game Controls */}
-        <div className="flex justify-center mt-8 gap-4">
+        <div className="flex flex-wrap justify-center mt-6 sm:mt-8 gap-3 sm:gap-4">
           <CursorButton
             onClick={() => {
               fetchWords();
               setMenuHover(false);
             }}
             disabled={loading}
-            className="bg-white text-black hover:bg-transparent hover:text-white disabled:opacity-50 disabled:hover:bg-white/50 disabled:hover:text-black/50"
+            className="bg-white text-black hover:bg-transparent hover:text-white disabled:opacity-50 disabled:hover:bg-white/50 disabled:hover:text-black/50 px-4 py-2 sm:px-6 sm:py-3"
           >
-            <span className="text-lg text-inherit">
+            <span className="text-sm sm:text-base md:text-lg text-inherit">
               {loading ? "Loading..." : "New Game"}
             </span>
           </CursorButton>
@@ -633,9 +644,11 @@ export default function KoalaType() {
                   resetGame();
                   setMenuHover(false);
                 }}
-                className="bg-white text-black hover:bg-transparent hover:text-white"
+                className="bg-white text-black hover:bg-transparent hover:text-white px-4 py-2 sm:px-6 sm:py-3"
               >
-                <span className="text-lg text-inherit">Reset</span>
+                <span className="text-sm sm:text-base md:text-lg text-inherit">
+                  Reset
+                </span>
               </CursorButton>
             </motion.div>
           )}
@@ -644,56 +657,60 @@ export default function KoalaType() {
         {/* Game Over Modal */}
         {gameEnded && (
           <motion.div
-            className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-10"
+            className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-10 p-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
             <motion.div
-              className="border border-white/20 rounded-xl p-8 text-center max-w-md w-full mx-4"
+              className="border border-white/20 rounded-xl p-6 sm:p-8 text-center max-w-md w-full bg-black/50"
               initial={{ scale: 0.9, y: 20 }}
               animate={{ scale: 1, y: 0 }}
             >
-              <h2 className="text-3xl font-bold mb-4 text-white">
+              <h2 className="text-2xl sm:text-3xl font-bold mb-4 text-white">
                 Game Complete!
               </h2>
-              <div className="space-y-4 mb-6">
-                <div className="flex justify-between">
+              <div className="space-y-3 sm:space-y-4 mb-6">
+                <div className="flex justify-between text-sm sm:text-base">
                   <span className="text-gray-400">Final WPM:</span>
                   <span className="text-white font-bold">{wpm}</span>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between text-sm sm:text-base">
                   <span className="text-gray-400">Accuracy:</span>
                   <span className="text-white font-bold">{accuracy}%</span>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between text-sm sm:text-base">
                   <span className="text-gray-400">Time:</span>
                   <span className="text-white font-bold">{timeElapsed}s</span>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between text-sm sm:text-base">
                   <span className="text-gray-400">Difficulty:</span>
                   <span className="text-white font-bold">
                     {difficulties[difficulty].name}
                   </span>
                 </div>
               </div>
-              <div className="flex gap-4">
+              <div className="flex flex-wrap gap-3 sm:gap-4 justify-center">
                 <CursorButton
                   onClick={() => {
                     fetchWords();
                     setMenuHover(false);
                   }}
-                  className="bg-white text-black hover:bg-transparent hover:text-white"
+                  className="bg-white text-black hover:bg-transparent hover:text-white px-4 py-2 sm:px-6 sm:py-3"
                 >
-                  <span className="text-lg text-inherit">Play Again</span>
+                  <span className="text-sm sm:text-base md:text-lg text-inherit">
+                    Play Again
+                  </span>
                 </CursorButton>
                 <CursorButton
                   onClick={() => {
                     setGameEnded(false);
                     setMenuHover(false);
                   }}
-                  className="bg-white text-black hover:bg-transparent hover:text-white"
+                  className="bg-white text-black hover:bg-transparent hover:text-white px-4 py-2 sm:px-6 sm:py-3"
                 >
-                  <span className="text-lg text-inherit">Close</span>
+                  <span className="text-sm sm:text-base md:text-lg text-inherit">
+                    Close
+                  </span>
                 </CursorButton>
               </div>
             </motion.div>

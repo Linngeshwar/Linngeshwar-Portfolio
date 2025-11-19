@@ -10,6 +10,7 @@ import MaybeProjects from "./components/Projects/MaybeProjects";
 import ProjectsFinally from "./components/Projects/ProjectsFinally";
 import Footer from "./components/Footer/Footer";
 import QuickFactsCarousel from "./components/About/QuickFactsCarousel";
+import LoadingScreen from "./components/LoadingScreen/LoadingScreen";
 import { useRef } from "react";
 import Lenis from "lenis";
 
@@ -24,6 +25,7 @@ const KoalaType = dynamic(() => import("./components/Koala/KoalaType"), {
 
 export default function Home() {
   const [showKoalaType, setShowKoalaType] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const koalaTypeRef = useRef(null);
 
   useEffect(() => {
@@ -62,49 +64,58 @@ export default function Home() {
   }, []);
 
   return (
-    <div>
-      <Navbar />
-      <About />
-      <QuickFactsCarousel />
-      {/* <MaybeProjects /> */}
-      <ProjectsFinally />
+    <>
+      <LoadingScreen onLoadingComplete={() => setIsLoading(false)} />
 
-      {/* Sticky scroll container */}
-      <div className="relative">
-        {/* KoalaType section */}
-        <div ref={koalaTypeRef} className="min-h-screen sticky top-0 z-10">
-          {showKoalaType ? (
-            <Suspense
-              fallback={
-                <div className="h-screen flex items-center justify-center text-neutral-400">
-                  Loading typing game...
-                </div>
-              }
-            >
-              <KoalaType />
-            </Suspense>
-          ) : (
-            <div className="h-screen flex items-center justify-center text-neutral-400">
-              Scroll down to load typing game...
-            </div>
-          )}
+      <div
+        style={{
+          opacity: isLoading ? 0 : 1,
+          transition: "opacity 0.5s ease-in-out",
+        }}
+      >
+        <Navbar />
+        <About />
+        <QuickFactsCarousel />
+        {/* <MaybeProjects /> */}
+        <ProjectsFinally />
+
+        {/* Sticky scroll container */}
+        <div className="relative">
+          {/* KoalaType section */}
+          <div ref={koalaTypeRef} className="min-h-screen sticky top-0 z-10">
+            {showKoalaType ? (
+              <Suspense
+                fallback={
+                  <div className="h-screen flex items-center justify-center text-neutral-400">
+                    Loading typing game...
+                  </div>
+                }
+              >
+                <KoalaType />
+              </Suspense>
+            ) : (
+              <div className="h-screen flex items-center justify-center text-neutral-400">
+                Scroll down to load typing game...
+              </div>
+            )}
+          </div>
+
+          {/* Skills section - sticks on top of KoalaType */}
+          <div className="min-h-screen sticky top-0 z-20">
+            <Skills />
+          </div>
+
+          {/* Contact section - sticks on top of Skills */}
+          <div className="min-h-screen sticky top-0 z-30">
+            <Contact />
+          </div>
         </div>
 
-        {/* Skills section - sticks on top of KoalaType */}
-        <div className="min-h-screen sticky top-0 z-20">
-          <Skills />
-        </div>
-
-        {/* Contact section - sticks on top of Skills */}
-        <div className="min-h-screen sticky top-0 z-30">
-          <Contact />
+        {/* Footer section - static after sticky sections */}
+        <div className="relative z-50">
+          <Footer />
         </div>
       </div>
-
-      {/* Footer section - static after sticky sections */}
-      <div className="relative z-50">
-        <Footer />
-      </div>
-    </div>
+    </>
   );
 }

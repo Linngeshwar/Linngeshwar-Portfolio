@@ -42,6 +42,7 @@ export default function Skills() {
     {
       name: "Next.js",
       size: 180,
+      mobileSize: 100,
       category: "frontend",
       proficiency: 80,
       color: "#fff",
@@ -49,6 +50,7 @@ export default function Skills() {
     {
       name: "React",
       size: 170,
+      mobileSize: 95,
       category: "frontend",
       proficiency: 80,
       color: "#61dafb",
@@ -56,6 +58,7 @@ export default function Skills() {
     {
       name: "JavaScript",
       size: 190,
+      mobileSize: 105,
       category: "language",
       proficiency: 85,
       color: "#f7df1e",
@@ -63,6 +66,7 @@ export default function Skills() {
     {
       name: "TypeScript",
       size: 160,
+      mobileSize: 90,
       category: "language",
       proficiency: 85,
       color: "#3178c6",
@@ -70,6 +74,7 @@ export default function Skills() {
     {
       name: "Node.js",
       size: 150,
+      mobileSize: 85,
       category: "backend",
       proficiency: 85,
       color: "#68a063",
@@ -77,6 +82,7 @@ export default function Skills() {
     {
       name: "Python",
       size: 170,
+      mobileSize: 95,
       category: "language",
       proficiency: 80,
       color: "#3776ab",
@@ -84,6 +90,7 @@ export default function Skills() {
     {
       name: "HTML",
       size: 140,
+      mobileSize: 80,
       category: "frontend",
       proficiency: 95,
       color: "#e34f26",
@@ -91,6 +98,7 @@ export default function Skills() {
     {
       name: "CSS",
       size: 130,
+      mobileSize: 75,
       category: "frontend",
       proficiency: 90,
       color: "#1572b6",
@@ -98,6 +106,7 @@ export default function Skills() {
     {
       name: "Tailwind",
       size: 160,
+      mobileSize: 90,
       category: "frontend",
       proficiency: 90,
       color: "#06b6d4",
@@ -105,6 +114,7 @@ export default function Skills() {
     {
       name: "Git",
       size: 120,
+      mobileSize: 70,
       category: "tools",
       proficiency: 85,
       color: "#f05032",
@@ -112,6 +122,7 @@ export default function Skills() {
     {
       name: "MongoDB",
       size: 170,
+      mobileSize: 95,
       category: "database",
       proficiency: 80,
       color: "#47a248",
@@ -119,6 +130,7 @@ export default function Skills() {
     {
       name: "PostgreSQL",
       size: 180,
+      mobileSize: 100,
       category: "database",
       proficiency: 75,
       color: "#336791",
@@ -126,6 +138,7 @@ export default function Skills() {
     {
       name: "Express",
       size: 150,
+      mobileSize: 85,
       category: "backend",
       proficiency: 85,
       color: "#fff",
@@ -133,6 +146,7 @@ export default function Skills() {
     {
       name: "Django",
       size: 160,
+      mobileSize: 90,
       category: "backend",
       proficiency: 60,
       color: "#092e20",
@@ -140,6 +154,7 @@ export default function Skills() {
     {
       name: "C++",
       size: 140,
+      mobileSize: 80,
       category: "language",
       proficiency: 75,
       color: "#00599c",
@@ -160,6 +175,26 @@ export default function Skills() {
     if (!container) return;
 
     const containerRect = container.getBoundingClientRect();
+    const screenWidth = window.innerWidth;
+
+    // Calculate size multiplier based on screen width
+    let sizeMultiplier;
+    if (screenWidth < 640) {
+      // Mobile: 45% of original size
+      sizeMultiplier = 0.45;
+    } else if (screenWidth < 768) {
+      // Small tablets: 55% of original size
+      sizeMultiplier = 0.55;
+    } else if (screenWidth < 1024) {
+      // Tablets: 70% of original size
+      sizeMultiplier = 0.7;
+    } else if (screenWidth < 1280) {
+      // Small desktop: 85% of original size
+      sizeMultiplier = 0.85;
+    } else {
+      // Large desktop: 100% of original size
+      sizeMultiplier = 1;
+    }
 
     // Filter skills based on category
     const filteredSkills =
@@ -168,19 +203,24 @@ export default function Skills() {
         : skillNames.filter((skill) => skill.category === selectedCategory);
 
     // Initialize skills with random positions and velocities
-    const initialSkills = filteredSkills.map((skill, index) => ({
-      id: index,
-      name: skill.name,
-      category: skill.category,
-      proficiency: skill.proficiency,
-      color: skill.color,
-      x: Math.random() * (containerRect.width - skill.size),
-      y: Math.random() * (containerRect.height - skill.size),
-      vx: (Math.random() - 0.5) * 3, // velocity between -1.5 and 1.5
-      vy: (Math.random() - 0.5) * 3,
-      size: skill.size,
-      baseSize: skill.size,
-    }));
+    const initialSkills = filteredSkills.map((skill, index) => {
+      const skillSize = Math.round(skill.size * sizeMultiplier);
+      const velocityMultiplier = sizeMultiplier < 0.7 ? 2 : 3;
+
+      return {
+        id: index,
+        name: skill.name,
+        category: skill.category,
+        proficiency: skill.proficiency,
+        color: skill.color,
+        x: Math.random() * (containerRect.width - skillSize),
+        y: Math.random() * (containerRect.height - skillSize),
+        vx: (Math.random() - 0.5) * velocityMultiplier,
+        vy: (Math.random() - 0.5) * velocityMultiplier,
+        size: skillSize,
+        baseSize: skillSize,
+      };
+    });
 
     setSkills(initialSkills);
   }, [selectedCategory]);
@@ -251,17 +291,19 @@ export default function Skills() {
       className="w-full min-h-screen bg-black relative overflow-hidden pb-20"
     >
       {/* Header */}
-      <div className="absolute top-8 left-1/2 transform -translate-x-1/2 z-20">
-        <h1 className="text-white text-6xl font-bold tracking-wider">SKILLS</h1>
+      <div className="absolute top-4 md:top-8 left-1/2 transform -translate-x-1/2 z-20">
+        <h1 className="text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-wider text-center">
+          SKILLS
+        </h1>
       </div>
 
       {/* Category Filter */}
-      <div className="absolute top-24 left-1/2 transform -translate-x-1/2 z-20 flex flex-wrap gap-3 justify-center px-4">
+      <div className="hidden md:flex absolute top-14 sm:top-16 md:top-20 lg:top-24 left-1/2 transform -translate-x-1/2 z-20 flex-wrap gap-2 md:gap-3 justify-center px-4 max-w-full">
         {categories.map((category) => (
           <CursorButton
             key={category.id}
             onClick={() => setSelectedCategory(category.id)}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 border-2 ${
+            className={`px-2 py-1 sm:px-3 sm:py-1.5 md:px-4 md:py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 border-2 z-50 ${
               selectedCategory === category.id
                 ? "bg-white text-black border-white"
                 : "bg-transparent text-white border-white hover:bg-white hover:text-black"
@@ -273,33 +315,43 @@ export default function Skills() {
       </div>
 
       {/* Control Buttons */}
-      <div className="absolute top-8 left-8 z-20 flex flex-col gap-3">
+      <div className="absolute top-4 md:top-8 left-2 sm:left-4 md:left-8 z-20 flex flex-col gap-2 md:gap-3">
         <CursorButton
           onClick={() => setIsPaused(!isPaused)}
-          className="px-4 py-2 bg-transparent text-white border-2 border-white rounded-full text-sm font-medium hover:bg-white hover:text-black transition-all duration-300"
+          className="px-2 py-1 sm:px-3 sm:py-1.5 md:px-4 md:py-2 bg-transparent text-white border-2 border-white rounded-full text-xs sm:text-sm font-medium hover:bg-white hover:text-black transition-all duration-300"
         >
-          {isPaused ? "▶ Play" : "⏸ Pause"}
+          <span className="hidden sm:inline">
+            {isPaused ? "▶ Play" : "⏸ Pause"}
+          </span>
+          <span className="sm:hidden">{isPaused ? "▶" : "⏸"}</span>
         </CursorButton>
         <CursorButton
           onClick={toggleGravity}
-          className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 border-2 ${
+          className={`px-2 py-1 sm:px-3 sm:py-1.5 md:px-4 md:py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 border-2 ${
             gravityEnabled
               ? "bg-white text-black border-white"
               : "bg-transparent text-white border-white hover:bg-white hover:text-black"
           }`}
         >
-          {gravityEnabled ? "🌍 Gravity ON" : "🌍 Gravity OFF"}
+          <span className="hidden sm:inline">
+            {gravityEnabled ? "🌍 Gravity ON" : "🌍 Gravity OFF"}
+          </span>
+          <span className="sm:hidden">🌍</span>
         </CursorButton>
         <CursorButton
           onClick={handleBlast}
-          className="px-4 py-2 bg-transparent text-white border-2 border-white rounded-full text-sm font-medium hover:bg-white hover:text-black transition-all duration-300"
+          className="px-2 py-1 sm:px-3 sm:py-1.5 md:px-4 md:py-2 bg-transparent text-white border-2 border-white rounded-full text-xs sm:text-sm font-medium hover:bg-white hover:text-black transition-all duration-300"
         >
-          💥 Blast!
+          <span className="hidden sm:inline">💥 Blast!</span>
+          <span className="sm:hidden">💥</span>
         </CursorButton>
       </div>
 
       {/* Skills Container */}
-      <div ref={containerRef} className="w-full h-screen relative pt-40">
+      <div
+        ref={containerRef}
+        className="w-full h-screen relative pt-32 sm:pt-36 md:pt-40 z-10"
+      >
         {skills.map((skill) => (
           <motion.div
             key={`${skill.name}-${selectedCategory}`}
@@ -310,13 +362,13 @@ export default function Skills() {
             }}
             exit={{ scale: 0, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="absolute bg-white text-black rounded-full flex items-center justify-center font-semibold select-none cursor-pointer group"
+            className="absolute bg-white text-black rounded-full flex items-center justify-center font-semibold select-none cursor-pointer group z-0"
             style={{
               left: `${skill.x}px`,
               top: `${skill.y}px`,
               width: `${skill.size}px`,
               height: `${skill.size}px`,
-              fontSize: `${Math.max(10, skill.size * 0.15)}px`,
+              fontSize: `${Math.max(8, skill.size * 0.15)}px`,
               transform: "translate3d(0, 0, 0)", // Hardware acceleration
               backgroundColor: hoveredSkill === skill.id ? skill.color : "#fff",
               color:
@@ -333,6 +385,8 @@ export default function Skills() {
             }}
             onMouseEnter={() => setHoveredSkill(skill.id)}
             onMouseLeave={() => setHoveredSkill(null)}
+            onTouchStart={() => setHoveredSkill(skill.id)}
+            onTouchEnd={() => setTimeout(() => setHoveredSkill(null), 2000)}
           >
             <span className="relative z-10">{skill.name}</span>
 
@@ -341,7 +395,7 @@ export default function Skills() {
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-black text-white px-3 py-1 rounded-md text-xs whitespace-nowrap"
+                className="absolute -bottom-6 sm:-bottom-8 left-1/2 transform -translate-x-1/2 bg-black text-white px-2 py-1 sm:px-3 rounded-md text-[10px] sm:text-xs whitespace-nowrap"
               >
                 {skill.proficiency}% Proficiency
                 <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-black rotate-45"></div>
@@ -352,9 +406,12 @@ export default function Skills() {
       </div>
 
       {/* Legend */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 text-white text-sm text-center">
+      <div className="absolute bottom-4 md:bottom-8 left-1/2 transform -translate-x-1/2 z-20 text-white text-xs sm:text-sm text-center px-4">
         <p className="opacity-70">
-          Hover for proficiency • Toggle gravity • Blast for chaos!
+          <span className="hidden sm:inline">
+            Hover for proficiency • Toggle gravity • Blast for chaos!
+          </span>
+          <span className="sm:hidden">Tap for proficiency</span>
         </p>
       </div>
     </div>

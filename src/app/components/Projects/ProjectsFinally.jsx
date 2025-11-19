@@ -302,7 +302,7 @@ export default function ProjectsFinally() {
                   duration: 0.05,
                 },
               }}
-              className="flex absolute top-2 right-2 lg:hidden items-center justify-center bg-white rounded-full h-6 w-6"
+              className="flex absolute top-4 left-4 lg:hidden items-center justify-center bg-white rounded-full h-10 w-10 z-50 shadow-lg hover:bg-gray-100 transition-colors"
               onClick={() => setActive(null)}
             >
               <CloseIcon />
@@ -318,7 +318,7 @@ export default function ProjectsFinally() {
                   height={200}
                   src={active.src}
                   alt={active.title}
-                  className="w-full h-80 lg:h-80 sm:rounded-tr-lg sm:rounded-tl-lg object-cover object-top"
+                  className="w-full h-80 lg:h-80 sm:rounded-tr-lg sm:rounded-tl-lg object-contain bg-neutral-800/50"
                 />
               </motion.div>
 
