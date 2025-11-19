@@ -76,7 +76,7 @@ export default function Navbar() {
   return (
     <>
       {/* Main Navbar */}
-      <nav className="fixed flex flex-col justify-center items-center top-8 right-0 transform -translate-x-1/2 z-50 outline-none">
+      <nav className="fixed flex flex-col justify-center items-end top-8 right-8 z-[200] outline-none">
         <CursorButton onClick={toggleMenu} className={buttonClasses}>
           <span className="relative block h-[1.5em] overflow-hidden">
             <AnimatePresence mode="wait" initial={false}>
@@ -103,11 +103,11 @@ export default function Navbar() {
             animate={{ x: 0 }}
             exit={{ x: "-100%" }}
             transition={{ duration: 0.6, ease: [0.6, 0.01, 0.05, 0.95] }}
-            className="fixed inset-0 bg-[#000000db] z-40 flex flex-col items-center justify-center"
+            className="fixed inset-0 bg-[#000000db] z-[50] flex flex-col items-center justify-center"
           >
             {/* Close button */}
             {/* Navigation Links */}
-            <div className="flex flex-col items-center space-y-8">
+            <div className="flex flex-col items-start space-y-8">
               {navItems.map((item, index) => (
                 <motion.div
                   key={item}
@@ -131,10 +131,10 @@ export default function Navbar() {
                     className="block relative px-8 py-4 text-4xl md:text-6xl font-bold text-white transition-colors duration-300 group-hover:text-black z-10"
                   >
                     {/* Background slide effect */}
-                    <div className=" absolute inset-0 bg-white transform translate-x-[99%] group-hover:translate-x-0 transition-transform duration-500 ease-out"></div>
+                    <div className="absolute inset-0 bg-white transform translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-500 ease-out"></div>
 
-                    {/* Top bar slide effect */}
-                    <div className="absolute top-0 left-0 right-0 h-1 bg-black transform -translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out delay-200"></div>
+                    {/* Left bar - always visible */}
+                    <div className="absolute top-0 left-0 bottom-0 w-1 bg-white"></div>
 
                     {/* Text */}
                     <span className="relative z-10">{item}</span>

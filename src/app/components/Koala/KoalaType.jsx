@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import CursorButton from "../Cursor/CursorButton";
 import { useCursor } from "../../context/CursorContext";
+import typingData from "../../data/typing-words.json";
 
 export default function KoalaType() {
   const { setMenuHover } = useCursor();
@@ -30,18 +31,35 @@ export default function KoalaType() {
     easy: {
       name: "Easy",
       description: "Simple words, no punctuation",
-      endpoint: "https://random-word-api.herokuapp.com/word?number=30",
+      wordCount: 30,
     },
     moderate: {
       name: "Moderate",
       description: "Mixed complexity with punctuation",
-      endpoint: "https://random-word-api.herokuapp.com/word?number=25",
+      wordCount: 25,
     },
     hard: {
       name: "Hard",
       description: "Complex words with punctuation",
-      endpoint: "https://random-word-api.herokuapp.com/word?number=20",
+      wordCount: 20,
     },
+  };
+
+  // Function to get random words based on difficulty
+  const getRandomWords = (difficulty, count) => {
+    let sourceWords = [];
+
+    if (difficulty === "easy") {
+      sourceWords = [...typingData.easy_words, ...typingData.common_words];
+    } else if (difficulty === "moderate") {
+      sourceWords = [...typingData.moderate_words, ...typingData.common_words];
+    } else if (difficulty === "hard") {
+      sourceWords = [...typingData.hard_words, ...typingData.moderate_words];
+    }
+
+    // Shuffle and pick random words
+    const shuffled = sourceWords.sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, count);
   };
 
   const processWords = (rawWords, difficulty) => {
@@ -78,16 +96,16 @@ export default function KoalaType() {
     return processedWords;
   };
 
-  const fetchWords = async () => {
+  const fetchWords = () => {
     setLoading(true);
     try {
-      const response = await fetch(difficulties[difficulty].endpoint);
-      const data = await response.json();
-      const processedWords = processWords(data, difficulty);
+      const wordCount = difficulties[difficulty].wordCount;
+      const rawWords = getRandomWords(difficulty, wordCount);
+      const processedWords = processWords(rawWords, difficulty);
       setWords(processedWords);
       resetGame();
     } catch (error) {
-      console.error("Error fetching words:", error);
+      console.error("Error loading words:", error);
       // Fallback words
       const fallbackWords = [
         "the",
